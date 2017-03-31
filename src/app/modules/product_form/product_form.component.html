@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel">
+            <div class="panel-heading">Product Form</div>
+            <div class="panel-body">
+                <div class="panel panel-success" *ngIf="is_added">
+					<div class="panel-heading">Product is added successfully.</div>
+				</div>
+                <form #ProductForm="ngForm" (ngSubmit)="addProduct()" action="" method="" role="form">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select class="form-control" name="category_id">
+                                <option value=""></option>
+                                <option value="1">Category 1</option>
+                                <option value="2">Category 2</option>
+                                <option value="3">Category 3</option>
+                                <option value="4">Category 4</option>
+                            </select>
+                        </div>
+                        <div class="form-group {{name.untouched ? '' : (name.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Name</label>
+                            <input class="form-control" placeholder="Name" name="name" #name="ngModel" ngControl="name" [(ngModel)]="product.name" required pattern="[\S\s]+">
+                            <div class="panel panel-danger" *ngIf="name.errors && name.touched">
+                                <div class="panel-heading" *ngIf="name.errors.required">Please input name</div>
+                                <div class="panel-heading" *ngIf="name.errors.pattern">Name is invalid</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="3" name="description" #description></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file"><p class="help-block">Example block-level help text here.</p>
+                        </div>
+                        <div class="form-group {{price.untouched ? '' : (price.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Price ($)</label>
+                            <input type="text" class="form-control" placeholder="Price" name="price" #price="ngModel" ngControl="price" [(ngModel)]="product.price" required pattern="[\d]+">
+                            <div class="panel panel-danger" *ngIf="price.errors && price.touched">
+                                <div class="panel-heading" *ngIf="price.errors.required">Please input price</div>
+                                <div class="panel-heading" *ngIf="price.errors.pattern">Price is invalid</div>
+                            </div>
+                        </div>
+                        <div class="form-group checkbox">
+                            <label><input type="checkbox">Status</label>
+                        </div>
+                        <button type="submit" class="btn btn-success" [disabled]="ProductForm.form.invalid">Submit</button>
+                        <button type="reset" class="btn btn-default">Reset</button>
+                        <a routerLink="/product" class="btn btn-primary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.col-->
+</div><!-- /.row -->

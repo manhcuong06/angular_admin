@@ -1,0 +1,88 @@
+import { Product } from '../../models/product/product.model';
+
+export var MockProducts: Product[] = [
+    {
+        id: 1,
+        name: 'branded shoes',
+        price: 100,
+        image: 'pic1.jpg',
+        status: 1,
+    },
+    {
+        id: 2,
+        name: 'branded t-shirts',
+        price: 200,
+        image: 'pic2.jpg',
+        status: 1,
+    },
+    {
+        id: 3,
+        name: 'branded tees',
+        price: 300,
+        image: 'pic3.jpg',
+        status: 0,
+    },
+    {
+        id: 4,
+        name: 'branded bag',
+        price: 400,
+        image: 'pic4.jpg',
+        status: 0,
+    },
+    {
+        id: 5,
+        name: 'branded bag',
+        price: 500,
+        image: 'pic5.jpg',
+        status: 1,
+    },
+    {
+        id: 6,
+        name: 'branded cargos',
+        price: 600,
+        image: 'pic6.jpg',
+        status: 1,
+    },
+    {
+        id: 7,
+        name: 'branded shoes',
+        price: 100,
+        image: 'c1.jpg',
+        status: 0,
+    },
+    {
+        id: 8,
+        name: 'branded tees',
+        price: 200,
+        image: 'c2.jpg',
+        status: 0,
+    },
+    {
+        id: 9,
+        name: 'branded jeens',
+        price: 300,
+        image: 'c3.jpg',
+        status: 1,
+    },
+    {
+        id: 10,
+        name: 'branded shoes',
+        price: 400,
+        image: 'c1.jpg',
+        status: 1,
+    },
+    {
+        id: 11,
+        name: 'branded tees',
+        price: 500,
+        image: 'c2.jpg',
+        status: 0,
+    },
+    {
+        id: 12,
+        name: 'branded jeens',
+        price: 600,
+        image: 'c3.jpg',
+        status: 0,
+    },
+];

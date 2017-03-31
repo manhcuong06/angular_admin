@@ -1,0 +1,1 @@
+export const service_api_domain: string = 'http://localhost/';
