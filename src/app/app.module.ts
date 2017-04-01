@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Ng2PaginationModule } from 'ng2-pagination';
+import { Select2Module } from 'ng2-select2';
 
 import { AppComponent }  from './app.component';
 
@@ -44,7 +45,7 @@ import { routing } from './app.routing';
 import { OrderByPipe } from './app.pipe';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, Ng2PaginationModule ],
+  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, Ng2PaginationModule, Select2Module ],
   declarations: [
     AppComponent,
 

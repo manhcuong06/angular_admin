@@ -1,0 +1,27 @@
+.sidebar .nav a span:last-child {
+    position: absolute;
+    right: 0px;
+}
+img {
+    height: 200px;
+    margin: 10px 0;
+}
+table > thead > tr > th {
+    width: 250px;
+}
+table > thead > tr > th:last-child {
+    width: 150px;
+}
+table > tbody > tr > td.in-stock {
+    color: #0f0;
+}
+table > tbody > tr > td.sold-out {
+    color: #f00;
+}
+table > tbody > tr > td > img {
+    height: 100px;
+    margin: 0;
+}
+ul.ng2-pagination li:not(.disabled):not(.current) {
+	cursor: pointer;
+}

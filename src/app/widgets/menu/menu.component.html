@@ -8,15 +8,15 @@
         <li *ngFor="let item of menu" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [class]="item.child ? 'parent' : ''">
             <div *ngIf="!item.child">
                 <a routerLink="{{item.link}}">
-                    <svg class="glyph stroked home">
-                        <use [attr.href]="'#stroked-' + item.icon"></use>
-                    </svg>
+                    <svg class="glyph stroked home"><use [attr.href]="'#stroked-' + item.icon"></use></svg>
                     {{item.label}}
                 </a>
             </div>
             <div *ngIf="item.child">
-                <a data-toggle="collapse" href="#sub-item-{{item.id}}">
-                    <span><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> {{item.label}}
+                <a data-toggle="collapse" href="#sub-item-{{item.id}}" (click)="collapse(item.id)">
+                    <span><svg class="glyph stroked home"><use [attr.href]="'#stroked-' + item.icon"></use></svg></span>
+                    {{item.label}}
+                    <span><svg class="glyph stroked chevron-down"><use [attr.href]="'#stroked-chevron-' + (item.collapse ? 'left' : 'down')"></use></svg></span>
                 </a>
                 <ul class="children collapse" id="sub-item-{{item.id}}">
                     <li *ngFor="let child of item.child">
@@ -29,5 +29,4 @@
         </li>
         <li role="presentation" class="divider"></li>
     </ul>
-
 </div><!--/.sidebar-->

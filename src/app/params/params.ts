@@ -1,1 +1,1 @@
-export const service_api_domain: string = 'http://localhost/';
+export const status: string[] = ['Hết hàng', 'Còn hàng'];

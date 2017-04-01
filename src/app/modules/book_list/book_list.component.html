@@ -32,8 +32,8 @@
                                             <div class="th-inner "><input name="btSelectAll" type="checkbox"></div>
                                             <div class="fht-cell"></div>
                                         </th>
-                                        <th style="" *ngFor="let column of columns">
-                                            <div class="th-inner sortable" (click)="sortBy(column.id)">
+                                        <th *ngFor="let column of columns">
+                                            <div class="th-inner sortable" (click)="sortBy(column.name)">
                                                 {{column.label}}
                                                 <span [class]="column.class" *ngIf="column.display"><span class="caret" style="margin: 10px 5px;"></span></span>
                                             </div>
@@ -44,14 +44,17 @@
                                 <tbody>
                                     <tr *ngFor="let book of books | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" [attr.data-index]="i">
                                         <td class="bs-checkbox"><input [attr.dataIndex]="i" name="toolbar1" type="checkbox"></td>
-                                        <td style="">{{book.id}}</td>
-                                        <td style=""><a routerLink="/book/update/{{book.id}}">{{book.ten_sach}}</a></td>
-                                        <td style="">{{book.id_tac_gia}}</td>
-                                        <td style="">{{book.id_loai_sach}}</td>
-                                        <td style="">{{book.id_nha_xuat_ban}}</td>
-                                        <td style="">{{book.trang_thai}}</td>
-                                        <td style="">{{book.hinh}}</td>
-                                        <td style="">$ {{book.don_gia}}</td>
+                                        <td><a routerLink="/book/update/{{book.id}}">{{book.ten_sach}}</a></td>
+                                        <td>{{writers[book.id_tac_gia]}}</td>
+                                        <td>{{categories[book.id_loai_sach]}}</td>
+                                        <td>{{publishers[book.id_nha_xuat_ban]}}</td>
+                                        <td [class]="book.trang_thai == 1 ? 'in-stock' : 'sold-out'">{{status[book.trang_thai]}}</td>
+                                        <td><img src="{{images_path + book.hinh}}"></td>
+                                        <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
+                                        <td>
+                                            <a class="btn btn-block btn-primary" routerLink="/book/update/{{book.id}}" title="Update"><i class="fa fa-pencil"></i></a>
+                                            <a class="btn btn-block btn-danger" href="#" title="Delete"><i class="fa fa-trash"></i></a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

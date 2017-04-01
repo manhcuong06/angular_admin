@@ -12,5 +12,5 @@ e2e/**/*.js.map
 _test-output
 _temp
 
-!src/public/js/*.js
+!src/public/js/**/*.js
 src/app/params/params_local.ts

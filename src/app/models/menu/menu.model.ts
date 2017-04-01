@@ -4,6 +4,7 @@ export class Menu {
         public icon: string,
         public label: string,
         public link: string,
+        public collapse: boolean,
         public child: Menu[],
     ) { }
 }

@@ -10,29 +10,35 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ModBookFormComponent implements OnInit {
     book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-    writers: any[] = [];
-    categories: any[] = [];
+    categories  : any;
+    publishers  : any;
+    writers     : any;
+    status      = this.book_service.status;
+    images_path = this.book_service.images_path;
     is_added: boolean = false;
     is_updated: boolean = false;
 
     constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
         this.route.params
-            .switchMap((params: Params) => this.book_service.getbook(params['id']))
-            .subscribe((book: Book) => this.book = book ? book : this.book);
-
-        for (var i=1; i<=32; i++) {
-            this.writers.push({id: i, label: 'Tác giả ' + i});
-        }
-        for (var i=1; i<=92; i++) {
-            this.categories.push({id: i, label: 'Loại sách ' + i});
-        }
+            .switchMap((params: Params) => this.book_service.getBook(params['id']))
+            .subscribe((book: Book) => {
+                this.categories = this.book_service.categories;
+                this.publishers = this.book_service.publishers;
+                this.writers    = this.book_service.writers;
+                this.book       = book ? book : this.book;
+            })
+        ;
     }
 
     ngOnInit() { }
 
+    checkSelect(event: any) {
+        // console.log(event);
+    }
+
     addBook() {
         this.is_added = true
-        // this.book_service.addbook(this.book)
+        // this.book_service.addBook(this.book)
         //     .toPromise()
         //     .then(res => this.is_added = true);
     }

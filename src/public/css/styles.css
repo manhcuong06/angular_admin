@@ -932,7 +932,3 @@ h1.page-header {
 	height: 65px;
 	overflow: scroll;
 }
-
-ul.ng2-pagination li:not(.disabled):not(.current) {
-	cursor: pointer;
-}

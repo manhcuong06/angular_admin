@@ -20,4 +20,13 @@ export class ModMenuComponent implements OnInit {
     }
 
     ngOnInit() { }
+
+    collapse(id: number) {
+        this.menu.forEach(function(item: Menu) {
+            if (item.id == id && item.child) {
+                item.collapse = !item.collapse;
+                return;
+            }
+        });
+    }
 }

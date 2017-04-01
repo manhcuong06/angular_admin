@@ -4,32 +4,60 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import param_local = require('../../params/params_local');
+import params_local = require('../../params/params_local');
+import params = require('../../params/params');
 
 @Injectable()
 export class BookService {
-    api_path = param_local.service_api_domain + 'book';
+    api_path    = params_local.service_api_domain + 'book/';
+    images_path = params_local.service_api_domain + 'images/sach/';
+    status      = params.status;
+    categories  : any;
+    publishers  : any;
+    writers     : any;
 
     constructor(private http: Http) { }
 
     getHttpbooks(): Promise<Book[]> {
-        return this.http.get(this.api_path)
+        let path = this.api_path;
+        return this.http.get(path)
             .toPromise()
-            .then((res: Response) => res.json() as Book[]);
+            .then((res: Response) => {
+                this.categories = res.json().categories;
+                this.publishers = res.json().publishers;
+                this.writers    = res.json().writers;
+                return res.json().books as Book[];
+            })
+        ;
     }
 
     getObservableHttpbooks(): Observable<Book[]> {
         return this.http.get(this.api_path)
-            .map((res: Response) => res.json() as Book[]);
+            .map((res: Response) => {
+                this.categories = res.json().categories;
+                this.publishers = res.json().publishers;
+                this.writers    = res.json().writers;
+                return res.json().books as Book[];
+            })
+        ;
     }
 
-    getbook(id: number): Promise<Book> {
-        return this.getHttpbooks()
-            .then((books: Book[]) => books.find(book => book.id == id));
+    getBook(id: number): Promise<Book> {
+        let path = this.api_path + 'view?id=' + id;
+        return this.http.get(path)
+            .toPromise()
+            .then((res: Response) => {
+                this.categories = res.json().categories;
+                this.publishers = res.json().publishers;
+                this.writers    = res.json().writers;
+                return res.json().book as Book;
+            })
+        ;
     }
 
-    addbook(book: any) {
+    addBook(book: Book) {
         return this.http.post('http://localhost:81/service_api/test_service_post.php', JSON.stringify(book))
-            .map((res: Response) => res.json());
+            .map((res: Response) => res.json())
+        ;
     }
 }
