@@ -10,36 +10,44 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ModBookFormComponent implements OnInit {
     book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-    categories  : any;
-    publishers  : any;
-    writers     : any;
-    status      = this.book_service.status;
-    images_path = this.book_service.images_path;
-    is_added: boolean = false;
-    is_updated: boolean = false;
+    is_sent         : boolean = false;
+    category_valid  : boolean = true;
+    publisher_valid : boolean = true;
+    writer_valid    : boolean = true;
 
     constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
+        this.book_service.reset();
         this.route.params
-            .switchMap((params: Params) => this.book_service.getBook(params['id']))
+            .switchMap((params: Params) => this.book_service.getBookForForm(params['id']))
             .subscribe((book: Book) => {
-                this.categories = this.book_service.categories;
-                this.publishers = this.book_service.publishers;
-                this.writers    = this.book_service.writers;
-                this.book       = book ? book : this.book;
+                this.book = book;
             })
         ;
     }
 
     ngOnInit() { }
 
-    checkSelect(event: any) {
-        // console.log(event);
+    onChange(property: any, value: any) {
+        this.book[property] = value;
     }
 
-    addBook() {
-        this.is_added = true
-        // this.book_service.addBook(this.book)
-        //     .toPromise()
-        //     .then(res => this.is_added = true);
+    onSubmit() {
+        // this.category_valid  = (this.book.id_loai_sach != null);
+        // this.publisher_valid = (this.book.id_nha_xuat_ban != null);
+        this.writer_valid    = (this.book.id_tac_gia != null);
+
+        if (this.category_valid && this.publisher_valid && this.writer_valid) {
+            this.is_sent = true;
+            if (this.book.id) {
+                this.book_service.updateBook(this.book)
+                    .toPromise()
+                    .then(res => this.is_sent = true);
+            } else {
+                console.log('Add');
+                // this.book_service.addBook(this.book)
+                //     .toPromise()
+                //     .then(res => this.is_sent = true);
+            }
+        }
     }
 }

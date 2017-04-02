@@ -1,0 +1,91 @@
+<div class="row" *ngIf="book">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Book view</div>
+            <div class="panel-body">
+                <div class="bootstrap-table">
+                    <div class="fixed-table-toolbar">
+                        <div class="pull-left search">
+                            <a class="btn btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update</a>
+                            <a class="btn btn-danger" href="#" title="Delete">Delete</a>
+                        </div>
+                    </div>
+                    <div class="fixed-table-container" style="padding-bottom: 0px;">
+                        <div class="fixed-table-header" style="display: block;">
+                            <table></table>
+                        </div>
+                        <div class="fixed-table-body">
+                            <div class="fixed-table-loading" style="top: 37px; display: none;">Loading, please wait…</div>
+                            <table class="table table-hover" style="margin-top: 0px;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 200px">Tên sách</td>
+                                        <td>{{book.ten_sach}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tác giả</td>
+                                        <td>{{book_service.writers.ten_tac_gia}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giới thiệu</td>
+                                        <td [innerHTML]="book.gioi_thieu"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Đọc thử</td>
+                                        <td><a href="{{book.doc_thu}}">{{book.doc_thu}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Loại sách</td>
+                                        <td>{{book_service.categories.ten_loai_sach}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nhà xuất bản</td>
+                                        <td>{{book_service.publishers.ten_nha_xuat_ban}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Số trang</td>
+                                        <td>{{book.so_trang}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ngày xuất bản</td>
+                                        <td>{{book.ngay_xuat_ban}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SKU</td>
+                                        <td>{{book.sku}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trọng lượng</td>
+                                        <td>{{book.trong_luong}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trạng thái</td>
+                                        <td [class]="book.trang_thai == 1 ? 'in-stock' : 'sold-out'">{{book_service.status[book.trang_thai]}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hình</td>
+                                        <td><img src="{{book_service.images_path + book.hinh}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Đơn giá</td>
+                                        <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giá bìa</td>
+                                        <td>{{book.gia_bia | number : '1.0-2'}} <u>đ</u></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nổi bật</td>
+                                        <td>{{book.noi_bat ? 'Nổi bật' : ''}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

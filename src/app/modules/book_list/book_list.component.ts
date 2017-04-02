@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from '../../models/book/book.model';
 import { BookService } from '../../services/book/book.service';
 import { OrderByPipe } from '../../app.pipe';
+import params = require('../../params/params');
 
 @Component({
     selector: 'module-book-list',
@@ -9,6 +10,7 @@ import { OrderByPipe } from '../../app.pipe';
 })
 export class ModBookListComponent implements OnInit {
     columns: any[] = [
+        { name: 'id', label: 'ID', class: 'order', display: true, },
         { name: 'ten_sach', label: 'Tên sách', class: '', display: false, },
         { name: 'id_tac_gia', label: 'Tác giả', class: '', display: false, },
         { name: 'id_loai_sach', label: 'Loại sách', class: '', display: false, },
@@ -16,24 +18,18 @@ export class ModBookListComponent implements OnInit {
         { name: 'trang_thai', label: 'Trạng thái', class: '', display: false, },
         { name: 'hinh', label: 'Hình', class: '', display: false, },
         { name: 'don_gia', label: 'Đơn giá', class: '', display: false, },
-        { name: 'action', label: '', class: '', display: false, },
+        { name: 'thao_tac', label: 'Thao tác', class: '', display: false, },
     ];
-    order_by: any[] = ['id', 1];
-    all_books   : Book[];
-    books       : Book[] = [];
-    categories  : any;
-    publishers  : any;
-    writers     : any;
-    status      = this.book_service.status;
-    images_path = this.book_service.images_path;
+    order_by  : any  = params.defaultOrderBy;
+    itemsPerPageList = params.itemsPerPageList;
+    itemsPerPage     = this.itemsPerPageList[0].id;
+    all_books : Book[];
+    books     : Book[] = [];
 
     constructor(private book_service: BookService) {
         // Get Http with Promise
         this.book_service.getHttpbooks()
             .then(books => {
-                this.categories = this.book_service.categories;
-                this.publishers = this.book_service.publishers;
-                this.writers    = this.book_service.writers;
                 this.all_books  = books;
                 this.books      = this.all_books;
             })
@@ -53,23 +49,29 @@ export class ModBookListComponent implements OnInit {
     }
 
     sortBy(name: string) {
-        let this_pointer = this;
-        this.columns.forEach(function(column) {
-            if (column.name == name) {
-                if (this_pointer.order_by[0] == column.name) {
-                    this_pointer.order_by[1] *= -1;
-                    column.class = (this_pointer.order_by[1] > 0) ? 'order dropup' : 'order';
+        if (name == 'id' || name == 'ten_sach' || name == 'trang_thai' || name == 'don_gia') {
+            let this_pointer = this;
+            this.columns.forEach(function(column) {
+                if (column.name == name) {
+                    if (this_pointer.order_by[0] == column.name) {
+                        this_pointer.order_by[1] *= -1;
+                        column.class = (this_pointer.order_by[1] > 0) ? 'order dropup' : 'order';
+                    } else {
+                        this_pointer.order_by[1] = 1;
+                        column.class = 'order dropup';
+                    }
+                    column.display = true;
+                    this_pointer.order_by[0] = column.name;
                 } else {
-                    this_pointer.order_by[1] = 1;
-                    column.class = 'order dropup';
+                    column.class   = '';
+                    column.display = false;
                 }
-                column.display = true;
-                this_pointer.order_by[0] = column.name;
-            } else {
-                column.class   = '';
-                column.display = false;
-            }
-        });
-        this.books = OrderByPipe.prototype.transform(this.books, this.order_by)
+            });
+            this.books = OrderByPipe.prototype.transform(this.books, this.order_by)
+        }
+    }
+
+    setItemsPerPage(itemsPerPage: number) {
+        this.itemsPerPage = itemsPerPage;
     }
 }

@@ -28,10 +28,6 @@
                             <table data-toggle="table" data-url="tables/data1.json" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" class="table table-hover" style="margin-top: 0px;">
                                 <thead style="display: table-header-group;">
                                     <tr>
-                                        <th class="bs-checkbox " style="width: 36px; ">
-                                            <div class="th-inner "><input name="btSelectAll" type="checkbox"></div>
-                                            <div class="fht-cell"></div>
-                                        </th>
                                         <th *ngFor="let column of columns">
                                             <div class="th-inner sortable" (click)="sortBy(column.name)">
                                                 {{column.label}}
@@ -42,14 +38,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let book of books | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" [attr.data-index]="i">
-                                        <td class="bs-checkbox"><input [attr.dataIndex]="i" name="toolbar1" type="checkbox"></td>
-                                        <td><a routerLink="/book/update/{{book.id}}">{{book.ten_sach}}</a></td>
-                                        <td>{{writers[book.id_tac_gia]}}</td>
-                                        <td>{{categories[book.id_loai_sach]}}</td>
-                                        <td>{{publishers[book.id_nha_xuat_ban]}}</td>
-                                        <td [class]="book.trang_thai == 1 ? 'in-stock' : 'sold-out'">{{status[book.trang_thai]}}</td>
-                                        <td><img src="{{images_path + book.hinh}}"></td>
+                                    <tr *ngFor="let book of books | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index" [attr.data-index]="i">
+                                        <td>{{book.id}}</td>
+                                        <td><a routerLink="/book/view/{{book.id}}">{{book.ten_sach}}</a></td>
+                                        <td>{{book_service.writers[book.id_tac_gia]}}</td>
+                                        <td>{{book_service.categories[book.id_loai_sach]}}</td>
+                                        <td>{{book_service.publishers[book.id_nha_xuat_ban]}}</td>
+                                        <td [class]="book.trang_thai == 1 ? 'in-stock' : 'sold-out'">{{book_service.status[book.trang_thai]}}</td>
+                                        <td><img src="{{book_service.images_path + book.hinh}}"></td>
                                         <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
                                         <td>
                                             <a class="btn btn-block btn-primary" routerLink="/book/update/{{book.id}}" title="Update"><i class="fa fa-pencil"></i></a>
@@ -63,17 +59,7 @@
                             <div class="pull-left pagination-detail">
                                 <span class="pagination-info">Showing 1 to 10 of {{books.length}} rows</span>
                                 <span class="page-list">
-                                    <span class="btn-group dropup">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            <span class="page-size">10</span> <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li class="active"><a href="javascript:void(0)">10</a></li>
-                                            <li><a href="javascript:void(0)">25</a></li>
-                                            <li><a href="javascript:void(0)">50</a></li>
-                                            <li><a href="javascript:void(0)">100</a></li>
-                                        </ul>
-                                    </span>
+                                    <select2 [data]="itemsPerPageList" [value]="book_service.itemsPerPage" (valueChanged)="setItemsPerPage($event.value)"></select2>
                                      records per page
                                 </span>
                             </div>

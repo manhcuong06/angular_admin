@@ -14,6 +14,7 @@ import { ModMenuComponent } from './widgets/menu/menu.component';
 //Modules
 import { ModPageHeaderComponent } from './modules/page_header/page_header.component';
 import { ModBookListComponent } from './modules/book_list/book_list.component';
+import { ModBookInfoComponent } from './modules/book_info/book_info.component';
 import { ModBookFormComponent } from './modules/book_form/book_form.component';
 import { ModProductListComponent } from './modules/product_list/product_list.component';
 import { ModProductFormComponent } from './modules/product_form/product_form.component';
@@ -23,6 +24,7 @@ import { ModUserFormComponent } from './modules/user_form/user_form.component';
 //Pages
 import { PageHomeComponent } from './pages/home/home.component';
 import { PageBookComponent } from './pages/book/book.component';
+import { PageBookViewComponent } from './pages/book_view/book_view.component';
 import { PageBookAddComponent } from './pages/book_add/book_add.component';
 import { PageBookUpdateComponent } from './pages/book_update/book_update.component';
 import { PageProductComponent } from './pages/product/product.component';
@@ -54,13 +56,13 @@ import { OrderByPipe } from './app.pipe';
 
     //Modules
     ModPageHeaderComponent,
-    ModBookListComponent, ModBookFormComponent,
+    ModBookListComponent, ModBookInfoComponent, ModBookFormComponent,
     ModProductListComponent, ModProductFormComponent,
     ModUserListComponent, ModUserFormComponent,
 
     //Pages
     PageHomeComponent,
-    PageBookComponent, PageBookAddComponent, PageBookUpdateComponent,
+    PageBookComponent, PageBookViewComponent, PageBookAddComponent, PageBookUpdateComponent,
     PageProductComponent, PageProductAddComponent, PageProductUpdateComponent,
     PageUserComponent, PageUserAddComponent, PageUserUpdateComponent
   ],

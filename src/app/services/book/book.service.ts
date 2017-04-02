@@ -55,9 +55,38 @@ export class BookService {
         ;
     }
 
-    addBook(book: Book) {
-        return this.http.post('http://localhost:81/service_api/test_service_post.php', JSON.stringify(book))
-            .map((res: Response) => res.json())
+    getBookForForm(id: number): Promise<Book> {
+        let path = this.api_path + 'info?id=' + id;
+        return this.http.get(path)
+            .toPromise()
+            .then((res: Response) => {
+                this.categories = res.json().categories;
+                this.publishers = res.json().publishers;
+                this.writers    = res.json().writers;
+                return res.json().book as Book;
+            })
         ;
+    }
+
+    addBook(book: Book) {
+        return;
+        // return this.http.post('http://localhost:81/service_api/test_service_post.php', JSON.stringify(book))
+        //     .map((res: Response) => res.json())
+        // ;
+    }
+
+    updateBook(book: Book) {
+        let path = this.api_path + 'update?id=' + book.id;
+        return this.http.post(path, JSON.stringify(book))
+            .map((res: Response) => {
+                return res.json();
+            })
+        ;
+    }
+
+    reset() {
+        this.categories = null;
+        this.publishers = null;
+        this.writers    = null;
     }
 }
