@@ -69,18 +69,23 @@ export class BookService {
     }
 
     addBook(book: Book) {
-        return;
-        // return this.http.post('http://localhost:81/service_api/test_service_post.php', JSON.stringify(book))
-        //     .map((res: Response) => res.json())
-        // ;
+        let path = this.api_path + 'create';
+        return this.http.post(path, JSON.stringify(book))
+            .map((res: Response) => res.json())
+        ;
     }
 
     updateBook(book: Book) {
         let path = this.api_path + 'update?id=' + book.id;
         return this.http.post(path, JSON.stringify(book))
-            .map((res: Response) => {
-                return res.json();
-            })
+            .map((res: Response) => res.json())
+        ;
+    }
+
+    deleteBook(id: number) {
+        let path = this.api_path + 'delete?id=' + id;
+        return this.http.post(path, id)
+            .map((res: Response) => res.json())
         ;
     }
 

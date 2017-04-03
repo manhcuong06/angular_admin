@@ -25,7 +25,14 @@
                                     <tr>
                                         <td>Writer</td>
                                         <td>{{book_service.writers.ten_tac_gia}}</td>
-                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td>{{book_service.categories.ten_loai_sach}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Image</td>
+                                        <td><img src="{{book_service.images_path + book.hinh}}"></td>
                                     </tr>
                                     <tr>
                                         <td>Description</td>
@@ -36,10 +43,6 @@
                                         <td><a href="{{book.doc_thu}}">{{book.doc_thu}}</a></td>
                                     </tr>
                                     <tr>
-                                        <td>Category</td>
-                                        <td>{{book_service.categories.ten_loai_sach}}</td>
-                                    </tr>
-                                    <tr>
                                         <td>Publisher</td>
                                         <td>{{book_service.publishers.ten_nha_xuat_ban}}</td>
                                     </tr>
@@ -48,7 +51,7 @@
                                         <td>{{book.so_trang}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Publish Date</td>
+                                        <td>Release Date</td>
                                         <td>{{book.ngay_xuat_ban}}</td>
                                     </tr>
                                     <tr>
@@ -57,23 +60,23 @@
                                     </tr>
                                     <tr>
                                         <td>Weight</td>
-                                        <td>{{book.trong_luong}}</td>
+                                        <td>{{book.trong_luong}} g</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dimention</td>
+                                        <td>{{book.kich_thuoc}}</td>
                                     </tr>
                                     <tr>
                                         <td>Status</td>
                                         <td [class]="book.trang_thai == 1 ? 'in-stock' : 'sold-out'">{{book_service.status[book.trang_thai]}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Image</td>
-                                        <td><img src="{{book_service.images_path + book.hinh}}"></td>
+                                        <td>Original Price</td>
+                                        <td>{{book.gia_bia | number : '1.0-2'}} <u>đ</u></td>
                                     </tr>
                                     <tr>
                                         <td>Selling Price</td>
                                         <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Original Price</td>
-                                        <td>{{book.gia_bia | number : '1.0-2'}} <u>đ</u></td>
                                     </tr>
                                     <tr>
                                         <td>Highlight</td>

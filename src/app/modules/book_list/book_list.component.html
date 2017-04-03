@@ -52,7 +52,7 @@
                                         <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
                                         <td>
                                             <a class="btn btn-block btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update <i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-block btn-danger" href="#" title="Delete">Delete <i class="fa fa-trash"></i></a>
+                                            <a class="btn btn-block btn-danger" (click)="deleteBook(book.id)" title="Delete">Delete <i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

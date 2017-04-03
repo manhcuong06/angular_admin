@@ -19,7 +19,7 @@
                                 <div class="panel-heading" *ngIf="ten_sach.errors.pattern">Name is invalid</div>
                             </div>
                         </div>
-                        <div class="form-group {{writer_valid ? 'has-success' : 'has-error'}}">
+                        <!--<div class="form-group {{writer_valid ? 'has-success' : 'has-error'}}">
                             <label>Writer</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -28,12 +28,17 @@
                             <div class="panel panel-danger" *ngIf="!writer_valid">
                                 <div class="panel-heading">Please choose writer</div>
                             </div>
-                        </div>
-                        <div class="form-group {{gioi_thieu.untouched ? '' : (gioi_thieu.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Description</label>
+                        </div>-->
+                        <div class="form-group {{id_tac_gia.untouched ? '' : (id_tac_gia.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Writer</label>
                             <div class="input-group mb15">
-                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
-                                <textarea class="form-control" rows="3" placeholder="Description" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <select class="form-control" name="id_tac_gia" #id_tac_gia="ngModel" ngControl="id_tac_gia" [(ngModel)]="book.id_tac_gia" required>
+                                    <option *ngFor="let writer of book_service.writers" value="{{writer.id}}" [selected]="book.id_tac_gia == writer.id">{{writer.ten_tac_gia}}</option>
+                                </select>
+                            </div>
+                            <div class="panel panel-danger" *ngIf="id_tac_gia.errors && id_tac_gia.touched">
+                                <div class="panel-heading" *ngIf="id_tac_gia.errors.required">Please choose writer</div>
                             </div>
                         </div>
                         <div class="form-group {{id_loai_sach.untouched ? '' : (id_loai_sach.valid) ? 'has-success' : 'has-error'}}">
@@ -48,6 +53,36 @@
                                 <div class="panel-heading" *ngIf="id_loai_sach.errors.required">Please choose category</div>
                             </div>
                         </div>
+                        <div class="form-group {{id_nha_xuat_ban.untouched ? '' : (id_nha_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Publisher</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                <select class="form-control" name="id_nha_xuat_ban" #id_nha_xuat_ban="ngModel" ngControl="id_nha_xuat_ban" [(ngModel)]="book.id_nha_xuat_ban" required>
+                                    <option *ngFor="let publisher of book_service.publishers" value="{{publisher.id}}" [selected]="book.id_nha_xuat_ban == publisher.id">{{publisher.ten_nha_xuat_ban}}</option>
+                                </select>
+                            </div>
+                            <div class="panel panel-danger" *ngIf="id_nha_xuat_ban.errors && id_nha_xuat_ban.touched">
+                                <div class="panel-heading" *ngIf="id_nha_xuat_ban.errors.required">Please choose publisher</div>
+                            </div>
+                        </div>
+                        <div class="form-group {{image_valid ? 'has-success' : 'has-error'}}">
+                            <label>Image</label>
+                            <div><img *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                                <input type="file" name="hinh">
+                            </div>
+                            <div class="panel panel-danger" *ngIf="!image_valid">
+                                <div class="panel-heading">Please choose image</div>
+                            </div>
+                        </div>
+                        <div class="form-group {{gioi_thieu.untouched ? '' : (gioi_thieu.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Description</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <textarea class="form-control" rows="3" placeholder="Description" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
+                            </div>
+                        </div>
                         <div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
                             <label>Release date</label>
                             <div class="input-group mb15">
@@ -59,30 +94,88 @@
                                 <div class="panel-heading" *ngIf="ngay_xuat_ban.errors.required">Please input release date</div>
                             </div>
                         </div>
-                        <div class="form-group {{trang_thai.untouched ? '' : (trang_thai.valid) ? 'has-success' : 'has-error'}}">
-                            <label><input type="checkbox" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"> In stock</label>
-                        </div>
-                        <div class="form-group {{hinh.untouched ? '' : (hinh.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Hình</label>
-                            <div><img *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
+                        <div class="form-group {{gia_bia.untouched ? '' : (gia_bia.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Original Price ( <u>đ</u> )</label>
                             <div class="input-group mb15">
-                                <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
-                                <input type="file" name="hinh" #hinh="ngModel" ngControl="hinh" [(ngModel)]="book.hinh" required>
+                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                <input type="text" class="form-control" placeholder="Original Price" name="gia_bia" #gia_bia="ngModel" ngControl="gia_bia" [(ngModel)]="book.gia_bia" required pattern="[\d]+">
                             </div>
-                            <div class="panel panel-danger" *ngIf="hinh.errors && hinh.touched">
-                                <div class="panel-heading" *ngIf="hinh.errors.required">Please choose image</div>
+                            <div class="panel panel-danger" *ngIf="gia_bia.errors && gia_bia.touched">
+                                <div class="panel-heading" *ngIf="gia_bia.errors.required">Please input original price</div>
+                                <div class="panel-heading" *ngIf="gia_bia.errors.pattern">Original price is invalid</div>
                             </div>
                         </div>
                         <div class="form-group {{don_gia.untouched ? '' : (don_gia.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Price ( <u>đ</u> )</label>
+                            <label>Selling Price ( <u>đ</u> )</label>
                             <div class="input-group mb15">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <input type="text" class="form-control" placeholder="Price" name="don_gia" #don_gia="ngModel" ngControl="don_gia" [(ngModel)]="book.don_gia" required pattern="[\d]+">
+                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                <input type="text" class="form-control" placeholder="Selling Price" name="don_gia" #don_gia="ngModel" ngControl="don_gia" [(ngModel)]="book.don_gia" required pattern="[\d]+">
                             </div>
                             <div class="panel panel-danger" *ngIf="don_gia.errors && don_gia.touched">
-                                <div class="panel-heading" *ngIf="don_gia.errors.required">Please input price</div>
-                                <div class="panel-heading" *ngIf="don_gia.errors.pattern">Price is invalid</div>
+                                <div class="panel-heading" *ngIf="don_gia.errors.required">Please input selling price</div>
+                                <div class="panel-heading" *ngIf="don_gia.errors.pattern">Selling price is invalid</div>
                             </div>
+                        </div>
+                        <div class="form-group {{so_trang.untouched ? '' : (so_trang.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Pages</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-files-o"></i></span>
+                                <input type="text" class="form-control" placeholder="Pages" name="so_trang" #so_trang="ngModel" ngControl="so_trang" [(ngModel)]="book.so_trang" required pattern="[\d]+">
+                            </div>
+                            <div class="panel panel-danger" *ngIf="so_trang.errors && so_trang.touched">
+                                <div class="panel-heading" *ngIf="so_trang.errors.required">Please input pages</div>
+                                <div class="panel-heading" *ngIf="so_trang.errors.pattern">Pages is invalid</div>
+                            </div>
+                        </div>
+                        <div class="form-group {{doc_thu.untouched ? '' : (doc_thu.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Preview</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-ellipsis-h"></i></span>
+                                <input type="text" class="form-control" placeholder="Preview" name="doc_thu" #doc_thu="ngModel" ngControl="doc_thu" [(ngModel)]="book.doc_thu">
+                            </div>
+                            <div class="panel panel-danger" *ngIf="doc_thu.errors && doc_thu.touched">
+                                <div class="panel-heading" *ngIf="doc_thu.errors.required">Please input preview</div>
+                                <div class="panel-heading" *ngIf="doc_thu.errors.pattern">Preview is invalid</div>
+                            </div>
+                        </div>
+                        <div class="form-group {{sku.untouched ? '' : (sku.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Sku</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <input type="text" class="form-control" placeholder="Sku" name="sku" #sku="ngModel" ngControl="sku" [(ngModel)]="book.sku">
+                            </div>
+                            <div class="panel panel-danger" *ngIf="sku.errors && sku.touched">
+                                <div class="panel-heading" *ngIf="sku.errors.required">Please input sku</div>
+                                <div class="panel-heading" *ngIf="sku.errors.pattern">Sku is invalid</div>
+                            </div>
+                        </div>
+                        <div class="form-group {{kich_thuoc.untouched ? '' : (kich_thuoc.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Dimension</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+                                <input type="text" class="form-control" placeholder="Dimension" name="kich_thuoc" #kich_thuoc="ngModel" ngControl="kich_thuoc" [(ngModel)]="book.kich_thuoc" required pattern="[\S\s]+">
+                            </div>
+                            <div class="panel panel-danger" *ngIf="kich_thuoc.errors && kich_thuoc.touched">
+                                <div class="panel-heading" *ngIf="kich_thuoc.errors.required">Please input dimension</div>
+                                <div class="panel-heading" *ngIf="kich_thuoc.errors.pattern">Dimension is invalid</div>
+                            </div>
+                        </div>
+                        <div class="form-group {{trong_luong.untouched ? '' : (trong_luong.valid) ? 'has-success' : 'has-error'}}">
+                            <label>Weight ( g )</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-balance-scale"></i></span>
+                                <input type="text" class="form-control" placeholder="Weight" name="trong_luong" #trong_luong="ngModel" ngControl="trong_luong" [(ngModel)]="book.trong_luong" required pattern="[\d]+">
+                            </div>
+                            <div class="panel panel-danger" *ngIf="trong_luong.errors && trong_luong.touched">
+                                <div class="panel-heading" *ngIf="trong_luong.errors.required">Please input weight</div>
+                                <div class="panel-heading" *ngIf="trong_luong.errors.pattern">Weight is invalid</div>
+                            </div>
+                        </div>
+                        <div class="form-group {{trang_thai.untouched ? '' : (trang_thai.valid) ? 'has-success' : 'has-error'}}">
+                            <label><input type="checkbox" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"> In stock</label>
+                        </div>
+                        <div class="form-group {{noi_bat.untouched ? '' : (noi_bat.valid) ? 'has-success' : 'has-error'}}">
+                            <label><input type="checkbox" name="noi_bat" #noi_bat="ngModel" ngControl="noi_bat" [(ngModel)]="book.noi_bat"> Highlight</label>
                         </div>
                         <button type="submit" class="btn btn-success" [disabled]="BookForm.form.invalid">{{book.id ? 'Update' : 'Add'}}</button>
                         <button type="reset" class="btn btn-default">Reset</button>

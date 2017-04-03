@@ -74,4 +74,8 @@ export class ModBookListComponent implements OnInit {
     setItemsPerPage(itemsPerPage: number) {
         this.itemsPerPage = itemsPerPage;
     }
+
+    deleteBook(id: number) {
+        this.book_service.deleteBook(id).toPromise();
+    }
 }
