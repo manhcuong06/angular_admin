@@ -11,14 +11,14 @@ import params = require('../../params/params');
 export class ModBookListComponent implements OnInit {
     columns: any[] = [
         { name: 'id', label: 'ID', class: 'order', display: true, },
-        { name: 'ten_sach', label: 'Tên sách', class: '', display: false, },
-        { name: 'id_tac_gia', label: 'Tác giả', class: '', display: false, },
-        { name: 'id_loai_sach', label: 'Loại sách', class: '', display: false, },
-        { name: 'id_nha_xuat_ban', label: 'Nhà xuất bản', class: '', display: false, },
-        { name: 'trang_thai', label: 'Trạng thái', class: '', display: false, },
-        { name: 'hinh', label: 'Hình', class: '', display: false, },
-        { name: 'don_gia', label: 'Đơn giá', class: '', display: false, },
-        { name: 'thao_tac', label: 'Thao tác', class: '', display: false, },
+        { name: 'ten_sach', label: 'Title', class: '', display: false, },
+        { name: 'id_tac_gia', label: 'Writer', class: '', display: false, },
+        { name: 'id_loai_sach', label: 'Category', class: '', display: false, },
+        { name: 'id_nha_xuat_ban', label: 'Publisher', class: '', display: false, },
+        { name: 'trang_thai', label: 'Status', class: '', display: false, },
+        { name: 'hinh', label: 'Image', class: '', display: false, },
+        { name: 'don_gia', label: 'Selling price', class: '', display: false, },
+        { name: 'thao_tac', label: 'Actions', class: '', display: false, },
     ];
     order_by  : any  = params.defaultOrderBy;
     itemsPerPageList = params.itemsPerPageList;
@@ -30,8 +30,8 @@ export class ModBookListComponent implements OnInit {
         // Get Http with Promise
         this.book_service.getHttpbooks()
             .then(books => {
-                this.all_books  = books;
-                this.books      = this.all_books;
+                this.all_books = books;
+                this.books     = this.all_books;
             })
         ;
 

@@ -9,52 +9,76 @@
                 <form #BookForm="ngForm" (ngSubmit)="onSubmit()" role="form">
                     <div class="col-md-12">
                         <div class="form-group {{ten_sach.untouched ? '' : (ten_sach.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Tên sách</label>
-                            <input class="form-control" placeholder="Tên sách" name="ten_sach" #ten_sach="ngModel" ngControl="ten_sach" [(ngModel)]="book.ten_sach" required pattern="[\S\s]+">
+                            <label>Title</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-book"></i></span>
+                                <input class="form-control" placeholder="Title" name="ten_sach" #ten_sach="ngModel" ngControl="ten_sach" [(ngModel)]="book.ten_sach" required pattern="[\S\s]+">
+                            </div>
                             <div class="panel panel-danger" *ngIf="ten_sach.errors && ten_sach.touched">
                                 <div class="panel-heading" *ngIf="ten_sach.errors.required">Please input name</div>
                                 <div class="panel-heading" *ngIf="ten_sach.errors.pattern">Name is invalid</div>
                             </div>
                         </div>
                         <div class="form-group {{writer_valid ? 'has-success' : 'has-error'}}">
-                            <label>Tác giả</label>
-                            <select2 [data]="book_service.writers" [width]="'100%'" [value]="book.id_tac_gia" [options]="{placeholder: 'Chọn tác giả'}" name="id_tac_gia" (valueChanged)="onChange('id_tac_gia', $event.value)"></select2>
+                            <label>Writer</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <select2 [data]="book_service.writers" [width]="'100%'" [value]="book.id_tac_gia" [options]="{placeholder: 'Choose Writer'}" name="id_tac_gia" (valueChanged)="onChange('id_tac_gia', $event.value)"></select2>
+                            </div>
                             <div class="panel panel-danger" *ngIf="!writer_valid">
                                 <div class="panel-heading">Please choose writer</div>
                             </div>
                         </div>
                         <div class="form-group {{gioi_thieu.untouched ? '' : (gioi_thieu.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Giới thiệu</label>
-                            <textarea class="form-control" rows="3" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
+                            <label>Description</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-info"></i></span>
+                                <textarea class="form-control" rows="3" placeholder="Description" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
+                            </div>
                         </div>
                         <div class="form-group {{id_loai_sach.untouched ? '' : (id_loai_sach.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Loại sách</label>
-                            <select class="form-control" name="id_loai_sach" #id_loai_sach="ngModel" ngControl="id_loai_sach" [(ngModel)]="book.id_loai_sach" required>
-                                <option *ngFor="let category of book_service.categories" value="{{category.id}}" [selected]="book.id_loai_sach == category.id">{{category.ten_loai_sach}}</option>
-                            </select>
+                            <label>Category</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-tags"></i></span>
+                                <select class="form-control" name="id_loai_sach" #id_loai_sach="ngModel" ngControl="id_loai_sach" [(ngModel)]="book.id_loai_sach" required>
+                                    <option *ngFor="let category of book_service.categories" value="{{category.id}}" [selected]="book.id_loai_sach == category.id">{{category.ten_loai_sach}}</option>
+                                </select>
+                            </div>
                             <div class="panel panel-danger" *ngIf="id_loai_sach.errors && id_loai_sach.touched">
                                 <div class="panel-heading" *ngIf="id_loai_sach.errors.required">Please choose category</div>
                             </div>
                         </div>
                         <div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Ngày xuất bản</label>
-                            <input type="date" class="form-control" placeholder="Ngày xuất bản" name="ngay_xuat_ban" #ngay_xuat_ban="ngModel" ngControl="ngay_xuat_ban" [(ngModel)]="book.ngay_xuat_ban" required>
+                            <label>Release date</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-remove"></i></span>
+                                <input type="date" class="form-control" name="ngay_xuat_ban" #ngay_xuat_ban="ngModel" ngControl="ngay_xuat_ban" [(ngModel)]="book.ngay_xuat_ban" required>
+                            </div>
                             <div class="panel panel-danger" *ngIf="ngay_xuat_ban.errors && ngay_xuat_ban.touched">
-                                <div class="panel-heading" *ngIf="ngay_xuat_ban.errors.required">Please input release</div>
+                                <div class="panel-heading" *ngIf="ngay_xuat_ban.errors.required">Please input release date</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label><input type="checkbox" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"> Trạng thái</label>
+                        <div class="form-group {{trang_thai.untouched ? '' : (trang_thai.valid) ? 'has-success' : 'has-error'}}">
+                            <label><input type="checkbox" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"> In stock</label>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group {{hinh.untouched ? '' : (hinh.valid) ? 'has-success' : 'has-error'}}">
                             <label>Hình</label>
                             <div><img *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
-                            <input type="file" name="hinh">
-                            <p class="help-block">Example block-level help text here.</p>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                                <input type="file" name="hinh" #hinh="ngModel" ngControl="hinh" [(ngModel)]="book.hinh" required>
+                            </div>
+                            <div class="panel panel-danger" *ngIf="hinh.errors && hinh.touched">
+                                <div class="panel-heading" *ngIf="hinh.errors.required">Please choose image</div>
+                            </div>
                         </div>
                         <div class="form-group {{don_gia.untouched ? '' : (don_gia.valid) ? 'has-success' : 'has-error'}}">
-                            <label>Đơn giá ( <u>đ</u> )</label>
-                            <input type="text" class="form-control" placeholder="Đơn giá" name="don_gia" #don_gia="ngModel" ngControl="don_gia" [(ngModel)]="book.don_gia" required pattern="[\d]+">
+                            <label>Price ( <u>đ</u> )</label>
+                            <div class="input-group mb15">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" placeholder="Price" name="don_gia" #don_gia="ngModel" ngControl="don_gia" [(ngModel)]="book.don_gia" required pattern="[\d]+">
+                            </div>
                             <div class="panel panel-danger" *ngIf="don_gia.errors && don_gia.touched">
                                 <div class="panel-heading" *ngIf="don_gia.errors.required">Please input price</div>
                                 <div class="panel-heading" *ngIf="don_gia.errors.pattern">Price is invalid</div>

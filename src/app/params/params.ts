@@ -1,4 +1,4 @@
-export const status: string[] = ['Hết hàng', 'Còn hàng'];
+export const status: string[] = ['Sold out', 'In stock'];
 export const itemsPerPageList = [
     { id: 10, text: 10 },
     { id: 25, text: 25 },

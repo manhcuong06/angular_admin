@@ -6,8 +6,8 @@
                 <div class="bootstrap-table">
                     <div class="fixed-table-toolbar">
                         <div class="pull-left search">
-                            <a class="btn btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update</a>
-                            <a class="btn btn-danger" href="#" title="Delete">Delete</a>
+                            <a class="btn btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update <i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger" href="#" title="Delete">Delete <i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                     <div class="fixed-table-container" style="padding-bottom: 0px;">
@@ -19,36 +19,36 @@
                             <table class="table table-hover" style="margin-top: 0px;">
                                 <tbody>
                                     <tr>
-                                        <td style="width: 200px">Tên sách</td>
+                                        <td style="width: 200px">Title</td>
                                         <td>{{book.ten_sach}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Tác giả</td>
+                                        <td>Writer</td>
                                         <td>{{book_service.writers.ten_tac_gia}}</td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td>Giới thiệu</td>
+                                        <td>Description</td>
                                         <td [innerHTML]="book.gioi_thieu"></td>
                                     </tr>
                                     <tr>
-                                        <td>Đọc thử</td>
+                                        <td>Preview</td>
                                         <td><a href="{{book.doc_thu}}">{{book.doc_thu}}</a></td>
                                     </tr>
                                     <tr>
-                                        <td>Loại sách</td>
+                                        <td>Category</td>
                                         <td>{{book_service.categories.ten_loai_sach}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Nhà xuất bản</td>
+                                        <td>Publisher</td>
                                         <td>{{book_service.publishers.ten_nha_xuat_ban}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Số trang</td>
+                                        <td>Pages</td>
                                         <td>{{book.so_trang}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Ngày xuất bản</td>
+                                        <td>Publish Date</td>
                                         <td>{{book.ngay_xuat_ban}}</td>
                                     </tr>
                                     <tr>
@@ -56,28 +56,28 @@
                                         <td>{{book.sku}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Trọng lượng</td>
+                                        <td>Weight</td>
                                         <td>{{book.trong_luong}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Trạng thái</td>
+                                        <td>Status</td>
                                         <td [class]="book.trang_thai == 1 ? 'in-stock' : 'sold-out'">{{book_service.status[book.trang_thai]}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Hình</td>
+                                        <td>Image</td>
                                         <td><img src="{{book_service.images_path + book.hinh}}"></td>
                                     </tr>
                                     <tr>
-                                        <td>Đơn giá</td>
+                                        <td>Selling Price</td>
                                         <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
                                     </tr>
                                     <tr>
-                                        <td>Giá bìa</td>
+                                        <td>Original Price</td>
                                         <td>{{book.gia_bia | number : '1.0-2'}} <u>đ</u></td>
                                     </tr>
                                     <tr>
-                                        <td>Nổi bật</td>
-                                        <td>{{book.noi_bat ? 'Nổi bật' : ''}}</td>
+                                        <td>Highlight</td>
+                                        <td>{{book.noi_bat ? 'Yes' : 'No'}}</td>
                                     </tr>
                                 </tbody>
                             </table>

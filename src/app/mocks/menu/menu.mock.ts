@@ -11,13 +11,38 @@ export var MockMenu: Menu[] = [
     },
     {
         id: 2,
+        icon: 'notepad',
+        label: 'Book',
+        link: '',
+        collapse: false,
+        child: [
+            {
+                id: 21,
+                icon: 'table',
+                label: 'List Book',
+                link: 'book',
+                collapse: false,
+                child: null
+            },
+            {
+                id: 22,
+                icon: 'plus-sign',
+                label: 'Add Book',
+                link: 'book/add',
+                collapse: false,
+                child: null
+            }
+        ],
+    },
+    {
+        id: 3,
         icon: 'mobile-device',
         label: 'Product',
         link: '',
         collapse: false,
         child: [
             {
-                id: 21,
+                id: 31,
                 icon: 'table',
                 label: 'List Product',
                 link: 'product',
@@ -25,7 +50,7 @@ export var MockMenu: Menu[] = [
                 child: null
             },
             {
-                id: 22,
+                id: 32,
                 icon: 'plus-sign',
                 label: 'Add Product',
                 link: 'product/add',
@@ -35,14 +60,14 @@ export var MockMenu: Menu[] = [
         ],
     },
     {
-        id: 3,
+        id: 4,
         icon: 'male-user',
         label: 'User',
         link: '',
         collapse: false,
         child: [
             {
-                id: 31,
+                id: 41,
                 icon: 'table',
                 label: 'List User',
                 link: 'user',
@@ -50,35 +75,10 @@ export var MockMenu: Menu[] = [
                 child: null
             },
             {
-                id: 32,
+                id: 42,
                 icon: 'plus-sign',
                 label: 'Add User',
                 link: 'user/add',
-                collapse: false,
-                child: null
-            }
-        ],
-    },
-    {
-        id: 4,
-        icon: 'notepad',
-        label: 'Book',
-        link: '',
-        collapse: false,
-        child: [
-            {
-                id: 41,
-                icon: 'table',
-                label: 'List Book',
-                link: 'book',
-                collapse: false,
-                child: null
-            },
-            {
-                id: 32,
-                icon: 'plus-sign',
-                label: 'Add Book',
-                link: 'book/add',
                 collapse: false,
                 child: null
             }
