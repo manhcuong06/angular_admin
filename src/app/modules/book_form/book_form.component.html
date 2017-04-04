@@ -65,7 +65,7 @@
                                 <div class="panel-heading" *ngIf="id_nha_xuat_ban.errors.required">Please choose publisher</div>
                             </div>
                         </div>
-                        <!--<div class="form-group {{(file_select.untouched) ? '' : (hinh.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{(file_select.untouched) ? '' : (hinh.valid) ? 'has-success' : 'has-error'}}">
                             <label>Image</label>
                             <div><img id="preview-image" *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
                             <div class="input-group mb15">
@@ -76,7 +76,7 @@
                             <div class="panel panel-danger" *ngIf="file_select.touched && hinh.invalid">
                                 <div class="panel-heading">Please choose image</div>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="form-group {{gioi_thieu.untouched ? '' : (gioi_thieu.valid) ? 'has-success' : 'has-error'}}">
                             <label>Description</label>
                             <div class="input-group mb15">
@@ -84,7 +84,7 @@
                                 <textarea class="form-control" rows="3" placeholder="Description" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
                             </div>
                         </div>
-                        <!--<div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
                             <label>Release date</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -94,7 +94,7 @@
                             <div class="panel panel-danger" *ngIf="ngay_xuat_ban.errors && ngay_xuat_ban.touched">
                                 <div class="panel-heading" *ngIf="ngay_xuat_ban.errors.required">Please input release date</div>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="form-group {{gia_bia.untouched ? '' : (gia_bia.valid) ? 'has-success' : 'has-error'}}">
                             <label>Original Price ( <u>đ</u> )</label>
                             <div class="input-group mb15">
