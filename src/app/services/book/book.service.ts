@@ -70,8 +70,18 @@ export class BookService {
 
     addBook(book: Book, file: File) {
         let path = this.api_path + 'create';
+        return this.http.post(path, JSON.stringify(book))
+            .map((res: Response) => {
+                console.log(res.json());
+                return res.json();
+            })
+        ;
+    }
+
+    updateBook(book: Book, file: File) {
+        let path = this.api_path + 'update?id=' + book.id;
         let formData: FormData = new FormData();
-        formData.append('file', file, file.name);
+        formData.append('image', file);
         for (var property in book) {
             formData.append(property, book[property]);
         }
@@ -80,13 +90,6 @@ export class BookService {
                 console.log(res.json());
                 return res.json();
             })
-        ;
-    }
-
-    updateBook(book: Book) {
-        let path = this.api_path + 'update?id=' + book.id;
-        return this.http.post(path, JSON.stringify(book))
-            .map((res: Response) => res.json())
         ;
     }
 

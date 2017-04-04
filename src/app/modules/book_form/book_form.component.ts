@@ -9,7 +9,8 @@ import 'rxjs/add/operator/switchMap';
     templateUrl: './app/modules/book_form/book_form.component.html'
 })
 export class ModBookFormComponent implements OnInit {
-    book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    // book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    book: Book = new Book(null, 'Tên sách 1', 1, 'Giới thiệu 1', 'Đọc thử 1', 2, 3, 500, '2017-04-05', 'Kích thước 1', 'SKU 1', 800, 1, null, 50000, 60000, false);
     file_input: string = '';
     file    : File;
     is_sent : boolean = false;
@@ -58,11 +59,9 @@ export class ModBookFormComponent implements OnInit {
         if (!this.book.id) {
             // Add Book
             this.book_service.addBook(this.book, this.file).toPromise().then(res => res);
-            console.log('Add');
         } else {
             // Update Book
-            // this.book_service.updateBook(this.book).toPromise().then(res => res);
-            console.log('Update');
+            this.book_service.updateBook(this.book, this.file).toPromise().then(res => res);
         }
         this.is_sent = true;
     }
