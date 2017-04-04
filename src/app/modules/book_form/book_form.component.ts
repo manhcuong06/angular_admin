@@ -10,8 +10,9 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ModBookFormComponent implements OnInit {
     book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-    is_sent         : boolean = false;
-    image_valid     : boolean = true;
+    file_input: string = '';
+    file    : File;
+    is_sent : boolean = false;
 
     constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
         this.book_service.reset();
@@ -25,22 +26,44 @@ export class ModBookFormComponent implements OnInit {
 
     ngOnInit() { }
 
-    onChange(property: any, value: any) {
+    select2OnChange(property: any, value: any) {
         this.book[property] = value;
     }
 
+    fileOnChange(event: EventTarget) {
+        let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
+        let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+        let files: FileList = target.files;
+        this.file = files[0];
+        this.book.hinh = this.file.name;
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#preview-image')
+                .attr('src', reader.result)
+                .height(200)
+            ;
+        };
+        reader.readAsDataURL(this.file);
+    }
+
     onSubmit() {
-        this.is_sent = true;
-        if (this.book.id) {
-            this.book_service.updateBook(this.book)
-                .toPromise()
-                .then(res => this.is_sent = true)
-            ;
-        } else {
-            this.book_service.addBook(this.book)
-                .toPromise()
-                .then(res => this.is_sent = true)
-            ;
+        // Upload Image
+        if (this.file) {
+            // this.book_service.uploadFile(this.file).toPromise().then(res => res);
+            // console.log(this.book);
+            // console.log('Upload Image');
         }
+
+        if (!this.book.id) {
+            // Add Book
+            this.book_service.addBook(this.book, this.file).toPromise().then(res => res);
+            console.log('Add');
+        } else {
+            // Update Book
+            // this.book_service.updateBook(this.book).toPromise().then(res => res);
+            console.log('Update');
+        }
+        this.is_sent = true;
     }
 }
