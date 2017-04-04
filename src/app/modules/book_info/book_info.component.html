@@ -1,0 +1,94 @@
+<div class="row" *ngIf="book">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Book view</div>
+            <div class="panel-body">
+                <div class="bootstrap-table">
+                    <div class="fixed-table-toolbar">
+                        <div class="pull-left search">
+                            <a class="btn btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update <i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger" href="#" title="Delete">Delete <i class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                    <div class="fixed-table-container" style="padding-bottom: 0px;">
+                        <div class="fixed-table-header" style="display: block;">
+                            <table></table>
+                        </div>
+                        <div class="fixed-table-body">
+                            <div class="fixed-table-loading" style="top: 37px; display: none;">Loading, please wait…</div>
+                            <table class="table table-hover" style="margin-top: 0px;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 200px">Title</td>
+                                        <td>{{book.ten_sach}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Writer</td>
+                                        <td>{{book_service.writers.ten_tac_gia}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td>{{book_service.categories.ten_loai_sach}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Image</td>
+                                        <td><img src="{{book_service.images_path + book.hinh}}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td [innerHTML]="book.gioi_thieu"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Preview</td>
+                                        <td><a href="{{book.doc_thu}}">{{book.doc_thu}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Publisher</td>
+                                        <td>{{book_service.publishers.ten_nha_xuat_ban}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pages</td>
+                                        <td>{{book.so_trang}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Release Date</td>
+                                        <td>{{book.ngay_xuat_ban}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SKU</td>
+                                        <td>{{book.sku}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weight</td>
+                                        <td>{{book.trong_luong}} g</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dimention</td>
+                                        <td>{{book.kich_thuoc}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td [class]="book.trang_thai == 1 ? 'in-stock' : 'sold-out'">{{book_service.status[book.trang_thai]}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Original Price</td>
+                                        <td>{{book.gia_bia | number : '1.0-2'}} <u>đ</u></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Selling Price</td>
+                                        <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Highlight</td>
+                                        <td>{{book.noi_bat ? 'Yes' : 'No'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

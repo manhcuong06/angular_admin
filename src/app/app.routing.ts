@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageHomeComponent } from './pages/home/home.component';
 import { PageBookComponent } from './pages/book/book.component';
 import { PageBookAddComponent } from './pages/book_add/book_add.component';
+import { PageBookViewComponent } from './pages/book_view/book_view.component';
 import { PageBookUpdateComponent } from './pages/book_update/book_update.component';
 import { PageProductComponent } from './pages/product/product.component';
 import { PageProductAddComponent } from './pages/product_add/product_add.component';
@@ -23,6 +24,10 @@ const appRoutes: Routes = [
     {
         path: 'book/add',
         component: PageBookAddComponent
+    },
+    {
+        path: 'book/view/:id',
+        component: PageBookViewComponent
     },
     {
         path: 'book/update/:id',

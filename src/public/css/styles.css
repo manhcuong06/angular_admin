@@ -76,7 +76,7 @@ h3, h4 {
 }
 
 .form-control {
-	border: 1px solid #eee;
+	border: 1px solid #ccc;
 	box-shadow: none;
 }
 
@@ -931,8 +931,4 @@ h1.page-header {
 	border-color: #ddd;
 	height: 65px;
 	overflow: scroll;
-}
-
-ul.ng2-pagination li:not(.disabled):not(.current) {
-	cursor: pointer;
 }
