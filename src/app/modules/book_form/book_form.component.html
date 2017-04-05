@@ -70,7 +70,7 @@
                             <div><img id="preview-image" *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
-                                <input type="text" class="form-control" name="hinh" #hinh="ngModel" ngControl="hinh" [(ngModel)]="book.hinh" required readonly>
+                                <input type="hidden" class="form-control" name="hinh" #hinh="ngModel" ngControl="hinh" [(ngModel)]="book.hinh" required readonly>
                                 <input type="file" class="form-control" name="file_select" (change)="fileOnChange($event)" #file_select="ngModel" ngControl="file_select" [(ngModel)]="file_input">
                             </div>
                             <div class="panel panel-danger" *ngIf="file_select.touched && hinh.invalid">

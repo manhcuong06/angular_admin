@@ -9,7 +9,7 @@ import 'rxjs/add/operator/switchMap';
     templateUrl: './app/modules/book_form/book_form.component.html'
 })
 export class ModBookFormComponent implements OnInit {
-    book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, 1, null, null, null, 0);
     file_input: string = '';
     file    : File;
     is_sent : boolean = false;
@@ -26,7 +26,7 @@ export class ModBookFormComponent implements OnInit {
 
     ngOnInit() { }
 
-    select2OnChange(property: any, value: any) {
+    select2OnChange(property: string, value: any) {
         this.book[property] = value;
     }
 
@@ -48,20 +48,10 @@ export class ModBookFormComponent implements OnInit {
     }
 
     onSubmit() {
-        // Upload Image
-        if (this.file) {
-            // this.book_service.uploadFile(this.file).toPromise().then(res => res);
-            // console.log(this.book);
-            // console.log('Upload Image');
-        }
+        this.book.trang_thai = this.book.trang_thai ? 1 : 0;
+        this.book.noi_bat    = this.book.noi_bat ? 1 : 0;
 
-        if (!this.book.id) {
-            // Add Book
-            this.book_service.addBook(this.book, this.file).toPromise().then(res => res);
-        } else {
-            // Update Book
-            this.book_service.updateBook(this.book, this.file).toPromise().then(res => res);
-        }
-        this.is_sent = true;
+        this.book_service.postBook(this.book, this.file).toPromise().then(res => this.is_sent = true);
+        console.log(this.book);
     }
 }
