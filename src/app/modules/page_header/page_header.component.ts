@@ -6,10 +6,13 @@ import { Title } from '@angular/platform-browser';
     templateUrl: './app/modules/page_header/page_header.component.html'
 })
 export class ModPageHeaderComponent implements OnInit {
-    title: string;
+    params = require('../../params/params');
 
     constructor(private title_service: Title) {
-        this.title = this.title_service.getTitle();
+        let this_poiter = this;
+        setTimeout(function() {
+            this_poiter.title_service.setTitle(this_poiter.params.title);
+        }, 200);
     }
 
     ngOnInit() { }

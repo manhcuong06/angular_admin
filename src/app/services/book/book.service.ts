@@ -18,7 +18,7 @@ export class BookService {
 
     constructor(private http: Http) { }
 
-    getHttpbooks(): Promise<Book[]> {
+    getAllBooks(): Promise<Book[]> {
         let path = this.api_path;
         return this.http.get(path)
             .toPromise()
@@ -33,12 +33,7 @@ export class BookService {
 
     // getObservableHttpbooks(): Observable<Book[]> {
     //     return this.http.get(this.api_path)
-    //         .map((res: Response) => {
-    //             this.categories = res.json().categories;
-    //             this.publishers = res.json().publishers;
-    //             this.writers    = res.json().writers;
-    //             return res.json().books as Book[];
-    //         })
+    //         .map((res: Response) => res.json() as Book[])
     //     ;
     // }
 

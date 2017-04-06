@@ -1,12 +1,11 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Books Advanced Table</div>
             <div class="panel-body">
                 <div class="bootstrap-table">
                     <div class="fixed-table-toolbar">
                         <div class="columns btn-group pull-left">
-                            <a class="btn btn-success" routerLink="/book/add" title="Add">Add <i class="fa fa-plus"></i></a>
+                            <a class="btn btn-success" routerLink="/book/add" title="Add">Add Book <i class="fa fa-plus"></i></a>
                         </div>
                         <div class="columns btn-group pull-right">
                             <button class="btn btn-default" type="button" name="refresh" title="Refresh"><i class="glyphicon glyphicon-refresh icon-refresh"></i></button>
@@ -52,7 +51,7 @@
                                         <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
                                         <td>
                                             <a class="btn btn-block btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update <i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-block btn-danger" (click)="deleteBook(book.id)" title="Delete">Delete <i class="fa fa-trash"></i></a>
+                                            <a class="btn btn-block btn-danger" (click)="deleteBook(book, i)" title="Delete">Delete <i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

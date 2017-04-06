@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Book } from '../../models/book/book.model';
 import { BookService } from '../../services/book/book.service';
+import params = require('../../params/params');
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -11,15 +12,23 @@ import 'rxjs/add/operator/switchMap';
 export class ModBookFormComponent implements OnInit {
     book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, 1, null, null, null, 0);
     file_input: string = '';
-    file    : File;
-    is_sent : boolean = false;
+    file : File;
 
     constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
         this.book_service.reset();
         this.route.params
             .switchMap((params: Params) => this.book_service.getBookForForm(params['id']))
             .subscribe((book: Book) => {
-                this.book = book.id ? book : this.book;
+                // Update
+                if (book.id) {
+                    params.title = '' + book.ten_sach;
+                    params.breadcrumbs = [
+                        { label: 'Books', url: '/book' },
+                        { label: params.title, url: '/book/view/' + book.id },
+                        { label: 'Update' }
+                    ];
+                    this.book = book;
+                }
             })
         ;
     }
@@ -49,8 +58,17 @@ export class ModBookFormComponent implements OnInit {
 
     onSubmit() {
         this.book.trang_thai = this.book.trang_thai ? 1 : 0;
-        this.book.noi_bat    = this.book.noi_bat ? 1 : 0;
+        this.book.noi_bat    = this.book.noi_bat    ? 1 : 0;
 
-        this.book_service.postBook(this.book, this.file).toPromise().then(res => this.is_sent = true);
+        this.book_service.postBook(this.book, this.file)
+            .toPromise()
+            .then(res => {
+                if (res.id) {
+                    this.router.navigate(['/book/view/' + res.id]);
+                } else {
+                    alert('An error occurs.');
+                }
+            })
+        ;
     }
 }

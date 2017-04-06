@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Book } from '../../models/book/book.model';
 import { BookService } from '../../services/book/book.service';
 import { OrderByPipe } from '../../app.pipe';
@@ -26,20 +27,14 @@ export class ModBookListComponent implements OnInit {
     all_books : Book[];
     books     : Book[] = [];
 
-    constructor(private book_service: BookService) {
-        // Get Http with Promise
-        this.book_service.getHttpbooks()
+    constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
+        // Get all Book
+        this.book_service.getAllBooks()
             .then(books => {
                 this.all_books = books;
                 this.books     = this.all_books;
             })
         ;
-
-        // Get Http with Obserable
-        // this.book_service.getObservableHttpbooks().subscribe(books => {
-        //     this.all_books = books;
-        //     this.books = this.all_books;
-        // });
     }
 
     ngOnInit() { }
@@ -75,7 +70,15 @@ export class ModBookListComponent implements OnInit {
         this.itemsPerPage = itemsPerPage;
     }
 
-    deleteBook(id: number) {
-        this.book_service.deleteBook(id).toPromise();
+    deleteBook(book: Book, index: number) {
+        if (confirm('Are you sure you want to delete: ' + book.ten_sach)) {
+            this.book_service.deleteBook(book.id)
+                .toPromise()
+                .then(res => {
+                    this.all_books.splice(index, 1);
+                    this.books = this.all_books;
+                })
+            ;
+        }
     }
 }

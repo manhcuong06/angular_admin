@@ -6,3 +6,6 @@ export const itemsPerPageList = [
     { id: 100, text: 100 },
 ];
 export const defaultOrderBy = ['id', -1];
+
+export var title       : string;
+export var breadcrumbs : any[] = [];
