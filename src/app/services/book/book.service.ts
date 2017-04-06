@@ -31,16 +31,16 @@ export class BookService {
         ;
     }
 
-    getObservableHttpbooks(): Observable<Book[]> {
-        return this.http.get(this.api_path)
-            .map((res: Response) => {
-                this.categories = res.json().categories;
-                this.publishers = res.json().publishers;
-                this.writers    = res.json().writers;
-                return res.json().books as Book[];
-            })
-        ;
-    }
+    // getObservableHttpbooks(): Observable<Book[]> {
+    //     return this.http.get(this.api_path)
+    //         .map((res: Response) => {
+    //             this.categories = res.json().categories;
+    //             this.publishers = res.json().publishers;
+    //             this.writers    = res.json().writers;
+    //             return res.json().books as Book[];
+    //         })
+    //     ;
+    // }
 
     getBook(id: number): Promise<Book> {
         let path = this.api_path + 'view?id=' + id;
@@ -71,25 +71,17 @@ export class BookService {
     postBook(book: Book, file: File) {
         let path = this.api_path;
         path += (book.id) ? ('update?id=' + book.id) : 'create';
-        console.log(path);
         let formData: FormData = new FormData();
         formData.append('image', file);
         for (var property in book) {
             formData.append(property, book[property]);
         }
-        return this.http.post(path, formData)
-            .map((res: Response) => {
-                console.log(res.json());
-                return res.json();
-            })
-        ;
+        return this.http.post(path, formData).map((res: Response) => res.json());
     }
 
     deleteBook(id: number) {
         let path = this.api_path + 'delete?id=' + id;
-        return this.http.post(path, id)
-            .map((res: Response) => res.json())
-        ;
+        return this.http.post(path, id).map((res: Response) => res.json());
     }
 
     reset() {

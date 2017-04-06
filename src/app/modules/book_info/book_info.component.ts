@@ -14,9 +14,7 @@ export class ModBookInfoComponent implements OnInit {
         this.book_service.reset();
         this.route.params
             .switchMap((params: Params) => this.book_service.getBook(params['id']))
-            .subscribe((book: Book) => {
-                this.book = book;
-            })
+            .subscribe((book: Book) => this.book = book)
         ;
     }
 

@@ -38,7 +38,7 @@ export class ModBookFormComponent implements OnInit {
         this.book.hinh = this.file.name;
 
         var reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = function() {
             $('#preview-image')
                 .attr('src', reader.result)
                 .height(200)
@@ -52,6 +52,5 @@ export class ModBookFormComponent implements OnInit {
         this.book.noi_bat    = this.book.noi_bat ? 1 : 0;
 
         this.book_service.postBook(this.book, this.file).toPromise().then(res => this.is_sent = true);
-        console.log(this.book);
     }
 }
