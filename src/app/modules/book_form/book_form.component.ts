@@ -9,9 +9,10 @@ import 'rxjs/add/operator/switchMap';
     templateUrl: './app/modules/book_form/book_form.component.html'
 })
 export class ModBookFormComponent implements OnInit {
-    book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-    is_sent         : boolean = false;
-    image_valid     : boolean = true;
+    book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, 1, null, null, null, 0);
+    file_input: string = '';
+    file    : File;
+    is_sent : boolean = false;
 
     constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
         this.book_service.reset();
@@ -25,22 +26,31 @@ export class ModBookFormComponent implements OnInit {
 
     ngOnInit() { }
 
-    onChange(property: any, value: any) {
+    select2OnChange(property: string, value: any) {
         this.book[property] = value;
     }
 
+    fileOnChange(event: EventTarget) {
+        let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
+        let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+        let files: FileList = target.files;
+        this.file = files[0];
+        this.book.hinh = this.file.name;
+
+        var reader = new FileReader();
+        reader.onload = function() {
+            $('#preview-image')
+                .attr('src', reader.result)
+                .height(200)
+            ;
+        };
+        reader.readAsDataURL(this.file);
+    }
+
     onSubmit() {
-        this.is_sent = true;
-        if (this.book.id) {
-            this.book_service.updateBook(this.book)
-                .toPromise()
-                .then(res => this.is_sent = true)
-            ;
-        } else {
-            this.book_service.addBook(this.book)
-                .toPromise()
-                .then(res => this.is_sent = true)
-            ;
-        }
+        this.book.trang_thai = this.book.trang_thai ? 1 : 0;
+        this.book.noi_bat    = this.book.noi_bat ? 1 : 0;
+
+        this.book_service.postBook(this.book, this.file).toPromise().then(res => this.is_sent = true);
     }
 }

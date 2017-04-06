@@ -23,7 +23,7 @@
                             <label>Writer</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <select2 [data]="book_service.writers" [width]="'100%'" [value]="book.id_tac_gia" [options]="{placeholder: 'Choose Writer'}" name="id_tac_gia" (valueChanged)="onChange('id_tac_gia', $event.value)"></select2>
+                                <select2 [data]="book_service.writers" [width]="'100%'" [value]="book.id_tac_gia" [options]="{placeholder: 'Choose Writer'}" name="id_tac_gia" (valueChanged)="select2OnChange('id_tac_gia', $event.value)"></select2>
                             </div>
                             <div class="panel panel-danger" *ngIf="!writer_valid">
                                 <div class="panel-heading">Please choose writer</div>
@@ -65,14 +65,15 @@
                                 <div class="panel-heading" *ngIf="id_nha_xuat_ban.errors.required">Please choose publisher</div>
                             </div>
                         </div>
-                        <div class="form-group {{image_valid ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{(file_select.untouched) ? '' : (hinh.valid) ? 'has-success' : 'has-error'}}">
                             <label>Image</label>
-                            <div><img *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
+                            <div><img id="preview-image" *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
-                                <input type="file" name="hinh">
+                                <input type="hidden" class="form-control" name="hinh" #hinh="ngModel" ngControl="hinh" [(ngModel)]="book.hinh" required readonly>
+                                <input type="file" class="form-control" name="file_select" (change)="fileOnChange($event)" #file_select="ngModel" ngControl="file_select" [(ngModel)]="file_input">
                             </div>
-                            <div class="panel panel-danger" *ngIf="!image_valid">
+                            <div class="panel panel-danger" *ngIf="file_select.touched && hinh.invalid">
                                 <div class="panel-heading">Please choose image</div>
                             </div>
                         </div>

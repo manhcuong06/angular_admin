@@ -37,8 +37,8 @@ export class ModBookListComponent implements OnInit {
 
         // Get Http with Obserable
         // this.book_service.getObservableHttpbooks().subscribe(books => {
-        //     this.original_books = books;
-        //     this.books = this.original_books;
+        //     this.all_books = books;
+        //     this.books = this.all_books;
         // });
     }
 
