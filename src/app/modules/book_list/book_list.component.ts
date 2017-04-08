@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Book } from '../../models/book/book.model';
 import { BookService } from '../../services/book/book.service';
 import { OrderByPipe } from '../../app.pipe';
@@ -26,8 +25,9 @@ export class ModBookListComponent implements OnInit {
     itemsPerPage     = this.itemsPerPageList[0].id;
     all_books : Book[];
     books     : Book[] = [];
+    search_key: string;
 
-    constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
+    constructor(private book_service: BookService) {
         // Get all Book
         this.book_service.getAllBooks()
             .then(books => {
@@ -39,8 +39,10 @@ export class ModBookListComponent implements OnInit {
 
     ngOnInit() { }
 
-    search(event: any) {
-        this.books = this.all_books.filter(book => book.ten_sach.toLowerCase().indexOf(event.target.value) >= 0);
+    search(value: string) {
+        this.books = this.all_books.filter(book => book.ten_sach.toLowerCase().indexOf(value) >= 0);
+        this.search_key = value;
+        console.log(this.search_key);
     }
 
     sortBy(name: string) {
@@ -70,13 +72,15 @@ export class ModBookListComponent implements OnInit {
         this.itemsPerPage = itemsPerPage;
     }
 
-    deleteBook(book: Book, index: number) {
+    deleteBook(book: Book) {
         if (confirm('Are you sure you want to delete: ' + book.ten_sach)) {
+            let index_all = this.all_books.indexOf(book);
+            let index     = this.books.indexOf(book);
             this.book_service.deleteBook(book.id)
                 .toPromise()
                 .then(res => {
-                    this.all_books.splice(index, 1);
-                    this.books = this.all_books;
+                    this.all_books.splice(index_all, 1);
+                    this.books.splice(index, 1);
                 })
             ;
         }

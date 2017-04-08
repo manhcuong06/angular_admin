@@ -19,7 +19,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="pull-right search"><input class="form-control" type="text" placeholder="Search by name" (keyup)="search($event)"></div>
+                        <div class="pull-right search"><input class="form-control" type="text" placeholder="Search by name" (keyup)="search($event.target.value)"></div>
                     </div>
                     <div class="fixed-table-container" style="padding-bottom: 0px;">
                         <div class="fixed-table-header" style="display: block;">
@@ -40,7 +40,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let book of books | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index" [attr.data-index]="i">
+                                    <tr *ngFor="let book of books | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
                                         <td>{{book.id}}</td>
                                         <td><a routerLink="/book/view/{{book.id}}">{{book.ten_sach}}</a></td>
                                         <td>{{book_service.writers[book.id_tac_gia]}}</td>
@@ -51,7 +51,7 @@
                                         <td>{{book.don_gia | number : '1.0-2'}} <u>đ</u></td>
                                         <td>
                                             <a class="btn btn-block btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update <i class="fa fa-pencil"></i></a>
-                                            <a class="btn btn-block btn-danger" (click)="deleteBook(book, i)" title="Delete">Delete <i class="fa fa-trash"></i></a>
+                                            <a class="btn btn-block btn-danger" (click)="deleteBook(book)" title="Delete">Delete <i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
