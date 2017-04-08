@@ -27,7 +27,6 @@ export class ModBookFormComponent implements OnInit {
                         { label: book.ten_sach, url: '/book/view/' + book.id },
                         { label: 'Update' }
                     ];
-                    this.book = book;
                     setTimeout(() => {
                         this.selectedValues = {
                             category  : book.id_loai_sach + '',
@@ -35,6 +34,7 @@ export class ModBookFormComponent implements OnInit {
                             writer    : book.id_tac_gia + '',
                         }
                     }, 0);
+                    this.book = book;
                 }
             })
         ;
