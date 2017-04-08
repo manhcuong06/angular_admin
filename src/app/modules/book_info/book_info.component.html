@@ -35,7 +35,7 @@
                                     </tr>
                                     <tr>
                                         <td>Description</td>
-                                        <td [innerHTML]="book.gioi_thieu"></td>
+                                        <td [innerHTML]="sanitizer.bypassSecurityTrustHtml(book.gioi_thieu)"></td>
                                     </tr>
                                     <tr>
                                         <td>Preview</td>

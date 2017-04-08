@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Ng2PaginationModule } from 'ng2-pagination';
+import { SelectModule } from 'ng-select';
 import { Select2Module } from 'ng2-select2';
 
 import { AppComponent }  from './app.component';
@@ -46,8 +47,11 @@ import { routing } from './app.routing';
 //Pipes
 import { OrderByPipe } from './app.pipe';
 
+//File Uploader
+import { FileUploaderComponent } from './modules/file_uploader/file_uploader.component';
+
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, Ng2PaginationModule, Select2Module ],
+  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, Ng2PaginationModule, SelectModule, Select2Module ],
   declarations: [
     AppComponent,
 
@@ -64,7 +68,10 @@ import { OrderByPipe } from './app.pipe';
     PageHomeComponent,
     PageBookComponent, PageBookViewComponent, PageBookAddComponent, PageBookUpdateComponent,
     PageProductComponent, PageProductAddComponent, PageProductUpdateComponent,
-    PageUserComponent, PageUserAddComponent, PageUserUpdateComponent
+    PageUserComponent, PageUserAddComponent, PageUserUpdateComponent,
+
+    //File Uploader
+    FileUploaderComponent
   ],
   providers: [ MenuService, BookService, ProductService, UserService, OrderByPipe ],
   bootstrap:    [ AppComponent ]

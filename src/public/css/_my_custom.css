@@ -34,3 +34,9 @@ div.form-group.has-success label {
 div.form-group.has-error label {
     color: #a94442;
 }
+div.form-group.has-success div.below {
+    border-color: #3c763d;
+}
+div.form-group.has-error  div.below {
+    border-color: #a94442;
+}

@@ -11,8 +11,8 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ModBookFormComponent implements OnInit {
     book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, 1, null, null, null, 0);
-    file_input: string = '';
     file : File;
+    selectedValues = { };
 
     constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService) {
         this.book_service.reset();
@@ -21,13 +21,20 @@ export class ModBookFormComponent implements OnInit {
             .subscribe((book: Book) => {
                 // Update
                 if (book.id) {
-                    params.title = '' + book.ten_sach;
+                    params.title = 'Update Book: ' + book.ten_sach;
                     params.breadcrumbs = [
                         { label: 'Books', url: '/book' },
-                        { label: params.title, url: '/book/view/' + book.id },
+                        { label: book.ten_sach, url: '/book/view/' + book.id },
                         { label: 'Update' }
                     ];
                     this.book = book;
+                    setTimeout(() => {
+                        this.selectedValues = {
+                            category  : book.id_loai_sach + '',
+                            publisher : book.id_nha_xuat_ban + '',
+                            writer    : book.id_tac_gia + '',
+                        }
+                    }, 0);
                 }
             })
         ;
@@ -35,25 +42,13 @@ export class ModBookFormComponent implements OnInit {
 
     ngOnInit() { }
 
-    select2OnChange(property: string, value: any) {
+    selectOnChange(property: string, value: number = null) {
         this.book[property] = value;
     }
 
-    fileOnChange(event: EventTarget) {
-        let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
-        let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
-        let files: FileList = target.files;
-        this.file = files[0];
+    fileOnChange(event: any) {
+        this.file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
         this.book.hinh = this.file.name;
-
-        var reader = new FileReader();
-        reader.onload = function() {
-            $('#preview-image')
-                .attr('src', reader.result)
-                .height(200)
-            ;
-        };
-        reader.readAsDataURL(this.file);
     }
 
     onSubmit() {
@@ -68,6 +63,7 @@ export class ModBookFormComponent implements OnInit {
                 } else {
                     alert('An error occurs.');
                 }
+                console.log(res);
             })
         ;
     }
