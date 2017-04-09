@@ -42,23 +42,21 @@ export class ModBookListComponent implements OnInit {
     search(value: string) {
         this.books = this.all_books.filter(book => book.ten_sach.toLowerCase().indexOf(value) >= 0);
         this.search_key = value;
-        console.log(this.search_key);
     }
 
     sortBy(name: string) {
         if (name == 'id' || name == 'ten_sach' || name == 'trang_thai' || name == 'don_gia') {
-            let this_pointer = this;
-            this.columns.forEach(function(column) {
+            this.columns.forEach(column => {
                 if (column.name == name) {
-                    if (this_pointer.order_by[0] == column.name) {
-                        this_pointer.order_by[1] *= -1;
-                        column.class = (this_pointer.order_by[1] > 0) ? 'order dropup' : 'order';
+                    if (this.order_by[0] == column.name) {
+                        this.order_by[1] *= -1;
+                        column.class = (this.order_by[1] > 0) ? 'order dropup' : 'order';
                     } else {
-                        this_pointer.order_by[1] = 1;
+                        this.order_by[1] = 1;
                         column.class = 'order dropup';
                     }
                     column.display = true;
-                    this_pointer.order_by[0] = column.name;
+                    this.order_by[0] = column.name;
                 } else {
                     column.class   = '';
                     column.display = false;
@@ -73,7 +71,7 @@ export class ModBookListComponent implements OnInit {
     }
 
     deleteBook(book: Book) {
-        if (confirm('Are you sure you want to delete: ' + book.ten_sach)) {
+        if (confirm(`Are you sure you want to delete: ${book.ten_sach}`)) {
             let index_all = this.all_books.indexOf(book);
             let index     = this.books.indexOf(book);
             this.book_service.deleteBook(book.id)

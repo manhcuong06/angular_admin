@@ -28,15 +28,15 @@ table > tbody > tr > td > img {
 ul.ng2-pagination li:not(.disabled):not(.current) {
 	cursor: pointer;
 }
-div.form-group.has-success label {
+.has-success label {
     color: #3c763d;
 }
-div.form-group.has-error label {
+.has-error label {
     color: #a94442;
 }
-div.form-group.has-success div.below {
+.has-success div.below, .has-success .ui-calendar input {
     border-color: #3c763d;
 }
-div.form-group.has-error  div.below {
+.has-error div.below, .has-error .ui-calendar input  {
     border-color: #a94442;
 }

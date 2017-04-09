@@ -9,10 +9,7 @@ export class ModPageHeaderComponent implements OnInit {
     params = require('../../params/params');
 
     constructor(private title_service: Title) {
-        let this_poiter = this;
-        setTimeout(function() {
-            this_poiter.title_service.setTitle(this_poiter.params.title);
-        }, 200);
+        setTimeout(() => this.title_service.setTitle(this.params.title), 200);
     }
 
     ngOnInit() { }

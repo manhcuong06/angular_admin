@@ -5,6 +5,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { SelectModule } from 'ng-select';
 import { Select2Module } from 'ng2-select2';
+import { CalendarModule } from 'primeng/primeng';
 
 import { AppComponent }  from './app.component';
 
@@ -51,7 +52,10 @@ import { OrderByPipe } from './app.pipe';
 import { FileUploaderComponent } from './modules/file_uploader/file_uploader.component';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, Ng2PaginationModule, SelectModule, Select2Module ],
+  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, Ng2PaginationModule, SelectModule, Select2Module,
+
+                  //Primeng Modules
+                  CalendarModule ],
   declarations: [
     AppComponent,
 

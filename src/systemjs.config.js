@@ -28,7 +28,8 @@
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ng-select': 'npm:ng-select',
       'ng2-pagination': 'npm:ng2-pagination',
-      'ng2-select2': 'npm:ng2-select2'
+      'ng2-select2': 'npm:ng2-select2',
+      'primeng': 'npm:primeng'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -38,9 +39,10 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      'ng-select': { main: 'index.js', defaultExtension: 'js'},
-      'ng2-pagination': { main: 'index.js', defaultExtension: 'js'},
-      'ng2-select2': { main: 'ng2-select2.js', defaultExtension: 'js'}
+      'ng-select': { main: 'index.js', defaultExtension: 'js' },
+      'ng2-pagination': { main: 'index.js', defaultExtension: 'js' },
+      'ng2-select2': { main: 'ng2-select2.js', defaultExtension: 'js' },
+      'primeng': { defaultExtension: 'js' }
     }
   });
 })(this);

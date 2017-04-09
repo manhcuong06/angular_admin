@@ -9,8 +9,8 @@ import params = require('../../params/params');
 
 @Injectable()
 export class BookService {
-    api_path    = params_local.service_api_domain + 'book/';
-    images_path = params_local.service_api_domain + 'images/sach/';
+    api_path    = `${params_local.service_api_domain}book/`;
+    images_path = `${params_local.service_api_domain}images/sach/`;
     status      = params.status;
     categories  : any;
     publishers  : any;
@@ -38,7 +38,7 @@ export class BookService {
     // }
 
     getBook(id: number): Promise<Book> {
-        let path = this.api_path + 'view?id=' + id;
+        let path = `${this.api_path}view?id=${id}`;
         return this.http.get(path)
             .toPromise()
             .then((res: Response) => {
@@ -51,7 +51,7 @@ export class BookService {
     }
 
     getBookForForm(id: number): Promise<Book> {
-        let path = this.api_path + 'info?id=' + id;
+        let path = `${this.api_path}info?id=${id}`;
         return this.http.get(path)
             .toPromise()
             .then((res: Response) => {
@@ -65,7 +65,7 @@ export class BookService {
 
     postBook(book: Book, file: File) {
         let path = this.api_path;
-        path += (book.id) ? ('update?id=' + book.id) : 'create';
+        path += (book.id) ? (`update?id=${book.id}`) : 'create';
         let formData: FormData = new FormData();
         formData.append('image', file);
         for (var property in book) {
@@ -75,7 +75,7 @@ export class BookService {
     }
 
     deleteBook(id: number) {
-        let path = this.api_path + 'delete?id=' + id;
+        let path = `${this.api_path}delete?id=${id}`;
         return this.http.post(path, id).map((res: Response) => res.json());
     }
 

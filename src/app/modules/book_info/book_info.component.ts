@@ -30,7 +30,7 @@ export class ModBookInfoComponent implements OnInit {
     ngOnInit() { }
 
     deleteBook() {
-        if (confirm('Are you sure you want to delete: ' + this.book.ten_sach)) {
+        if (confirm(`Are you sure you want to delete: ${this.book.ten_sach}`)) {
             this.book_service.deleteBook(this.book.id).toPromise().then(res => this.router.navigate(['/book']));
         }
     }

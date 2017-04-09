@@ -8,10 +8,10 @@
                             <a class="btn btn-success" routerLink="/book/add" title="Add">Add Book <i class="fa fa-plus"></i></a>
                         </div>
                         <div class="columns btn-group pull-right">
-                            <button class="btn btn-default" type="button" name="refresh" title="Refresh"><i class="glyphicon glyphicon-refresh icon-refresh"></i></button>
-                            <button class="btn btn-default" type="button" name="toggle" title="Toggle"><i class="glyphicon glyphicon glyphicon-list-alt icon-list-alt"></i></button>
+                            <button class="btn btn-default" type="button" name="refresh" title="Refresh"><i class="glyphicon glyphicon-refresh"></i></button>
+                            <button class="btn btn-default" type="button" name="toggle" title="Toggle"><i class="glyphicon glyphicon glyphicon-list-alt"></i></button>
                             <div class="keep-open btn-group" title="Columns">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th icon-th"></i> <span class="caret"></span></button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-th"></i> <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li *ngFor="let column of columns; let i = index">
                                         <label><input type="checkbox" value="{{i}}" checked="checked"> {{column.label}}</label>

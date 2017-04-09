@@ -74,7 +74,8 @@
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                 <input type="hidden" class="form-control" name="hinh" #hinh="ngModel" ngControl="hinh" [(ngModel)]="book.hinh" required readonly>
-                                <file-uploader accept="image/*"
+                                <file-uploader
+                                    accept="image/*"
                                     [imageSrc]="book.hinh ? book_service.images_path + book.hinh : ''"
                                     (drop)="fileOnChange($event)"
                                     (change)="fileOnChange($event)">
@@ -84,7 +85,7 @@
                                 <div class="panel-heading">Please choose image</div>
                             </div>
                         </div>
-                        <div class="form-group {{gioi_thieu.untouched ? '' : (gioi_thieu.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{gioi_thieu.untouched ? '' : 'has-success'}}">
                             <label>Description</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-info"></i></span>
@@ -94,9 +95,12 @@
                         <div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
                             <label>Release date</label>
                             <div class="input-group mb15">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <span class="input-group-addon"><i class="fa fa-remove"></i></span>
-                                <input type="date" class="form-control" name="ngay_xuat_ban" #ngay_xuat_ban="ngModel" ngControl="ngay_xuat_ban" [(ngModel)]="book.ngay_xuat_ban" required>
+                                <p-calendar
+                                    [dateFormat]="'yy-mm-dd'"
+                                    [placeholder]="'yyyy-mm-dd'"
+                                    [showIcon]="true"
+                                    name="ngay_xuat_ban" #ngay_xuat_ban="ngModel" ngControl="ngay_xuat_ban" [(ngModel)]="book.ngay_xuat_ban" required>
+                                </p-calendar>
                             </div>
                             <div class="panel panel-danger" *ngIf="ngay_xuat_ban.errors && ngay_xuat_ban.touched">
                                 <div class="panel-heading" *ngIf="ngay_xuat_ban.errors.required">Please input release date</div>
@@ -135,26 +139,18 @@
                                 <div class="panel-heading" *ngIf="so_trang.errors.pattern">Pages is invalid</div>
                             </div>
                         </div>
-                        <div class="form-group {{doc_thu.untouched ? '' : (doc_thu.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{doc_thu.untouched ? '' : 'has-success'}}">
                             <label>Preview</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-ellipsis-h"></i></span>
                                 <input type="text" class="form-control" placeholder="Preview" name="doc_thu" #doc_thu="ngModel" ngControl="doc_thu" [(ngModel)]="book.doc_thu">
                             </div>
-                            <div class="panel panel-danger" *ngIf="doc_thu.errors && doc_thu.touched">
-                                <div class="panel-heading" *ngIf="doc_thu.errors.required">Please input preview</div>
-                                <div class="panel-heading" *ngIf="doc_thu.errors.pattern">Preview is invalid</div>
-                            </div>
                         </div>
-                        <div class="form-group {{sku.untouched ? '' : (sku.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{sku.untouched ? '' : 'has-success'}}">
                             <label>Sku</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-info"></i></span>
                                 <input type="text" class="form-control" placeholder="Sku" name="sku" #sku="ngModel" ngControl="sku" [(ngModel)]="book.sku">
-                            </div>
-                            <div class="panel panel-danger" *ngIf="sku.errors && sku.touched">
-                                <div class="panel-heading" *ngIf="sku.errors.required">Please input sku</div>
-                                <div class="panel-heading" *ngIf="sku.errors.pattern">Sku is invalid</div>
                             </div>
                         </div>
                         <div class="form-group {{kich_thuoc.untouched ? '' : (kich_thuoc.valid) ? 'has-success' : 'has-error'}}">
