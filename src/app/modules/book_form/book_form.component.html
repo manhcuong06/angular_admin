@@ -90,6 +90,7 @@
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-info"></i></span>
                                 <textarea class="form-control" rows="3" placeholder="Description" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
+                                <!--<p-editor name="text" [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>-->
                             </div>
                         </div>
                         <div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
@@ -175,11 +176,11 @@
                                 <div class="panel-heading" *ngIf="trong_luong.errors.pattern">Weight is invalid</div>
                             </div>
                         </div>
-                        <div class="form-group {{trang_thai.untouched ? '' : (trang_thai.valid) ? 'has-success' : 'has-error'}}">
-                            <label><input type="checkbox" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"> In stock</label>
+                        <div class="form-group {{trang_thai.untouched ? '' : 'has-success'}}">
+                            <p-checkbox label="In stock" binary="true" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"></p-checkbox>
                         </div>
-                        <div class="form-group {{noi_bat.untouched ? '' : (noi_bat.valid) ? 'has-success' : 'has-error'}}">
-                            <label><input type="checkbox" name="noi_bat" #noi_bat="ngModel" ngControl="noi_bat" [(ngModel)]="book.noi_bat"> Highlight</label>
+                        <div class="form-group {{noi_bat.untouched ? '' : 'has-success'}}">
+                            <p-checkbox label="Highlight" binary="true" name="noi_bat" #noi_bat="ngModel" ngControl="noi_bat" [(ngModel)]="book.noi_bat"></p-checkbox>
                         </div>
                         <button type="submit" class="btn btn-success" [disabled]="BookForm.form.invalid">{{book.id ? 'Update' : 'Add'}}</button>
                         <button type="reset" class="btn btn-default">Reset</button>

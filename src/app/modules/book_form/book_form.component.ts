@@ -15,6 +15,7 @@ export class ModBookFormComponent implements OnInit {
     book: Book = new Book(null, null, null, null, null, null, null, null, null, null, null, null, 1, null, null, null, 0);
     file : File;
     selectedValues = { };
+    // text: string;
 
     constructor(private route: ActivatedRoute, private router: Router, private book_service: BookService, private datePipe: DatePipe) {
         this.book_service.reset();
