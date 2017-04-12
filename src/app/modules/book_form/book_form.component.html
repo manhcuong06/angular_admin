@@ -181,7 +181,7 @@
                         <div class="form-group {{noi_bat.untouched ? '' : 'has-success'}}">
                             <p-checkbox label="Highlight" binary="true" name="noi_bat" #noi_bat="ngModel" ngControl="noi_bat" [(ngModel)]="book.noi_bat"></p-checkbox>
                         </div>
-                        <button type="submit" class="btn btn-success" [disabled]="BookForm.form.invalid">{{book.id ? 'Update' : 'Add'}}</button>
+                        <button type="submit" class="btn btn-{{book.id ? 'primary' : 'success'}}" [disabled]="BookForm.form.invalid">{{book.id ? 'Update' : 'Add'}} <i class="fa fa-{{book.id ? 'pencil' : 'plus'}}"></i></button>
                         <button type="reset" class="btn btn-default">Reset</button>
                     </div>
                 </form>
