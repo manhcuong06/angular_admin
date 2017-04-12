@@ -89,8 +89,7 @@
                             <label>Description</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-info"></i></span>
-                                <textarea class="form-control" rows="3" placeholder="Description" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
-                                <!--<p-editor name="text" [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>-->
+                                <ckeditor [config]="{extraPlugins: 'divarea'}" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></ckeditor>
                             </div>
                         </div>
                         <div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">

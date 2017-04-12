@@ -27,6 +27,7 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ng-select': 'npm:ng-select',
+      "ng2-ckeditor": "npm:ng2-ckeditor",
       'ng2-pagination': 'npm:ng2-pagination',
       'ng2-select2': 'npm:ng2-select2',
       'primeng': 'npm:primeng'
@@ -40,6 +41,7 @@
         defaultExtension: 'js'
       },
       'ng-select': { main: 'index.js', defaultExtension: 'js' },
+      "ng2-ckeditor": { main: "lib/index.js", defaultExtension: "js" },
       'ng2-pagination': { main: 'index.js', defaultExtension: 'js' },
       'ng2-select2': { main: 'ng2-select2.js', defaultExtension: 'js' },
       'primeng': { defaultExtension: 'js' }

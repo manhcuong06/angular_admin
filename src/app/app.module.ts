@@ -2,14 +2,13 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
+import { CKEditorModule } from 'ng2-ckeditor';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { SelectModule } from 'ng-select';
 import { Select2Module } from 'ng2-select2';
 
 //PrimeNG Modules
-import { CalendarModule, CheckboxModule,
-        // EditorModule, SharedModule
-} from 'primeng/primeng';
+import { CalendarModule, CheckboxModule } from 'primeng/primeng';
 
 import { AppComponent }  from './app.component';
 
@@ -56,12 +55,10 @@ import { OrderByPipe } from './app.pipe';
 import { FileUploaderComponent } from './modules/file_uploader/file_uploader.component';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, Ng2PaginationModule, SelectModule, Select2Module,
+  imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, CKEditorModule, Ng2PaginationModule, SelectModule, Select2Module,
 
                   //PrimeNG Modules
-                  CalendarModule, CheckboxModule,
-                  // EditorModule, SharedModule
-                  ],
+                  CalendarModule, CheckboxModule ],
   declarations: [
     AppComponent,
 
