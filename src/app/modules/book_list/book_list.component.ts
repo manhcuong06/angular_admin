@@ -25,43 +25,38 @@ export class ModBookListComponent implements OnInit {
     itemsPerPage     = this.itemsPerPageList[0].id;
     all_books : Book[];
     books     : Book[] = [];
+    search_key: string;
 
     constructor(private book_service: BookService) {
-        // Get Http with Promise
-        this.book_service.getHttpbooks()
+        // Get all Book
+        this.book_service.getAllBooks()
             .then(books => {
                 this.all_books = books;
                 this.books     = this.all_books;
             })
         ;
-
-        // Get Http with Obserable
-        // this.book_service.getObservableHttpbooks().subscribe(books => {
-        //     this.all_books = books;
-        //     this.books = this.all_books;
-        // });
     }
 
     ngOnInit() { }
 
-    search(event: any) {
-        this.books = this.all_books.filter(book => book.ten_sach.toLowerCase().indexOf(event.target.value) >= 0);
+    search(value: string) {
+        this.books = this.all_books.filter(book => book.ten_sach.toLowerCase().indexOf(value) >= 0);
+        this.search_key = value;
     }
 
     sortBy(name: string) {
         if (name == 'id' || name == 'ten_sach' || name == 'trang_thai' || name == 'don_gia') {
-            let this_pointer = this;
-            this.columns.forEach(function(column) {
+            this.columns.forEach(column => {
                 if (column.name == name) {
-                    if (this_pointer.order_by[0] == column.name) {
-                        this_pointer.order_by[1] *= -1;
-                        column.class = (this_pointer.order_by[1] > 0) ? 'order dropup' : 'order';
+                    if (this.order_by[0] == column.name) {
+                        this.order_by[1] *= -1;
+                        column.class = (this.order_by[1] > 0) ? 'order dropup' : 'order';
                     } else {
-                        this_pointer.order_by[1] = 1;
+                        this.order_by[1] = 1;
                         column.class = 'order dropup';
                     }
                     column.display = true;
-                    this_pointer.order_by[0] = column.name;
+                    this.order_by[0] = column.name;
                 } else {
                     column.class   = '';
                     column.display = false;
@@ -75,7 +70,17 @@ export class ModBookListComponent implements OnInit {
         this.itemsPerPage = itemsPerPage;
     }
 
-    deleteBook(id: number) {
-        this.book_service.deleteBook(id).toPromise();
+    deleteBook(book: Book) {
+        if (confirm(`Are you sure you want to delete: ${book.ten_sach}`)) {
+            let index_all = this.all_books.indexOf(book);
+            let index     = this.books.indexOf(book);
+            this.book_service.deleteBook(book.id)
+                .toPromise()
+                .then(res => {
+                    this.all_books.splice(index_all, 1);
+                    this.books.splice(index, 1);
+                })
+            ;
+        }
     }
 }

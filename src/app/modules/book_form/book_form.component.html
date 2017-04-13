@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel">
-            <div class="panel-heading">Book Form</div>
             <div class="panel-body">
                 <div class="panel panel-success" *ngIf="is_sent">
 					<div class="panel-heading">Book is {{book.id ? 'updated' : 'added'}} successfully.</div>
@@ -19,23 +18,18 @@
                                 <div class="panel-heading" *ngIf="ten_sach.errors.pattern">Name is invalid</div>
                             </div>
                         </div>
-                        <!--<div class="form-group {{writer_valid ? 'has-success' : 'has-error'}}">
-                            <label>Writer</label>
-                            <div class="input-group mb15">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <select2 [data]="book_service.writers" [width]="'100%'" [value]="book.id_tac_gia" [options]="{placeholder: 'Choose Writer'}" name="id_tac_gia" (valueChanged)="select2OnChange('id_tac_gia', $event.value)"></select2>
-                            </div>
-                            <div class="panel panel-danger" *ngIf="!writer_valid">
-                                <div class="panel-heading">Please choose writer</div>
-                            </div>
-                        </div>-->
                         <div class="form-group {{id_tac_gia.untouched ? '' : (id_tac_gia.valid) ? 'has-success' : 'has-error'}}">
                             <label>Writer</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <select class="form-control" name="id_tac_gia" #id_tac_gia="ngModel" ngControl="id_tac_gia" [(ngModel)]="book.id_tac_gia" required>
-                                    <option *ngFor="let writer of book_service.writers" value="{{writer.id}}" [selected]="book.id_tac_gia == writer.id">{{writer.ten_tac_gia}}</option>
-                                </select>
+                                <ng-select
+                                    [options]="book_service.writers"
+                                    [allowClear]="true"
+                                    (selected)="selectOnChange('id_tac_gia', $event.value)"
+                                    (deselected)="selectOnChange('id_tac_gia')"
+                                    placeholder="Choose writer"
+                                    name="id_tac_gia" #id_tac_gia="ngModel" ngControl="id_tac_gia" [(ngModel)]="selectedValues.writer" required>
+                                </ng-select>
                             </div>
                             <div class="panel panel-danger" *ngIf="id_tac_gia.errors && id_tac_gia.touched">
                                 <div class="panel-heading" *ngIf="id_tac_gia.errors.required">Please choose writer</div>
@@ -45,9 +39,14 @@
                             <label>Category</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-tags"></i></span>
-                                <select class="form-control" name="id_loai_sach" #id_loai_sach="ngModel" ngControl="id_loai_sach" [(ngModel)]="book.id_loai_sach" required>
-                                    <option *ngFor="let category of book_service.categories" value="{{category.id}}" [selected]="book.id_loai_sach == category.id">{{category.ten_loai_sach}}</option>
-                                </select>
+                                <ng-select
+                                    [options]="book_service.categories"
+                                    [allowClear]="true"
+                                    (selected)="selectOnChange('id_loai_sach', $event.value)"
+                                    (deselected)="selectOnChange('id_loai_sach')"
+                                    placeholder="Choose category"
+                                    name="id_loai_sach" #id_loai_sach="ngModel" ngControl="id_loai_sach" [(ngModel)]="selectedValues.category" required>
+                                </ng-select>
                             </div>
                             <div class="panel panel-danger" *ngIf="id_loai_sach.errors && id_loai_sach.touched">
                                 <div class="panel-heading" *ngIf="id_loai_sach.errors.required">Please choose category</div>
@@ -57,39 +56,51 @@
                             <label>Publisher</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                                <select class="form-control" name="id_nha_xuat_ban" #id_nha_xuat_ban="ngModel" ngControl="id_nha_xuat_ban" [(ngModel)]="book.id_nha_xuat_ban" required>
-                                    <option *ngFor="let publisher of book_service.publishers" value="{{publisher.id}}" [selected]="book.id_nha_xuat_ban == publisher.id">{{publisher.ten_nha_xuat_ban}}</option>
-                                </select>
+                                <ng-select
+                                    [options]="book_service.publishers"
+                                    [allowClear]="true"
+                                    (selected)="selectOnChange('id_nha_xuat_ban', $event.value)"
+                                    (deselected)="selectOnChange('id_nha_xuat_ban')"
+                                    placeholder="Choose publisher"
+                                    name="id_nha_xuat_ban" #id_nha_xuat_ban="ngModel" ngControl="id_nha_xuat_ban" [(ngModel)]="selectedValues.publisher" required>
+                                </ng-select>
                             </div>
                             <div class="panel panel-danger" *ngIf="id_nha_xuat_ban.errors && id_nha_xuat_ban.touched">
                                 <div class="panel-heading" *ngIf="id_nha_xuat_ban.errors.required">Please choose publisher</div>
                             </div>
                         </div>
-                        <div class="form-group {{(file_select.untouched) ? '' : (hinh.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{hinh.valid ? 'has-success' : 'has-error'}}">
                             <label>Image</label>
-                            <div><img id="preview-image" *ngIf="book.hinh" src="{{book_service.images_path + book.hinh}}"></div>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                 <input type="hidden" class="form-control" name="hinh" #hinh="ngModel" ngControl="hinh" [(ngModel)]="book.hinh" required readonly>
-                                <input type="file" class="form-control" name="file_select" (change)="fileOnChange($event)" #file_select="ngModel" ngControl="file_select" [(ngModel)]="file_input">
+                                <file-uploader
+                                    accept="image/*"
+                                    [imageSrc]="book.hinh ? book_service.images_path + book.hinh : ''"
+                                    (drop)="fileOnChange($event)"
+                                    (change)="fileOnChange($event)">
+                                </file-uploader>
                             </div>
-                            <div class="panel panel-danger" *ngIf="file_select.touched && hinh.invalid">
+                            <div class="panel panel-danger" *ngIf="hinh.invalid">
                                 <div class="panel-heading">Please choose image</div>
                             </div>
                         </div>
-                        <div class="form-group {{gioi_thieu.untouched ? '' : (gioi_thieu.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{gioi_thieu.untouched ? '' : 'has-success'}}">
                             <label>Description</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-info"></i></span>
-                                <textarea class="form-control" rows="3" placeholder="Description" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></textarea>
+                                <ckeditor [config]="{extraPlugins: 'divarea'}" name="gioi_thieu" #gioi_thieu="ngModel" ngControl="gioi_thieu" [(ngModel)]="book.gioi_thieu"></ckeditor>
                             </div>
                         </div>
                         <div class="form-group {{ngay_xuat_ban.untouched ? '' : (ngay_xuat_ban.valid) ? 'has-success' : 'has-error'}}">
                             <label>Release date</label>
                             <div class="input-group mb15">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <span class="input-group-addon"><i class="fa fa-remove"></i></span>
-                                <input type="date" class="form-control" name="ngay_xuat_ban" #ngay_xuat_ban="ngModel" ngControl="ngay_xuat_ban" [(ngModel)]="book.ngay_xuat_ban" required>
+                                <p-calendar
+                                    [dateFormat]="'yy-mm-dd'"
+                                    [placeholder]="'yyyy-mm-dd'"
+                                    [showIcon]="true"
+                                    name="ngay_xuat_ban" #ngay_xuat_ban="ngModel" ngControl="ngay_xuat_ban" [(ngModel)]="book.ngay_xuat_ban" required>
+                                </p-calendar>
                             </div>
                             <div class="panel panel-danger" *ngIf="ngay_xuat_ban.errors && ngay_xuat_ban.touched">
                                 <div class="panel-heading" *ngIf="ngay_xuat_ban.errors.required">Please input release date</div>
@@ -128,26 +139,18 @@
                                 <div class="panel-heading" *ngIf="so_trang.errors.pattern">Pages is invalid</div>
                             </div>
                         </div>
-                        <div class="form-group {{doc_thu.untouched ? '' : (doc_thu.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{doc_thu.untouched ? '' : 'has-success'}}">
                             <label>Preview</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-ellipsis-h"></i></span>
                                 <input type="text" class="form-control" placeholder="Preview" name="doc_thu" #doc_thu="ngModel" ngControl="doc_thu" [(ngModel)]="book.doc_thu">
                             </div>
-                            <div class="panel panel-danger" *ngIf="doc_thu.errors && doc_thu.touched">
-                                <div class="panel-heading" *ngIf="doc_thu.errors.required">Please input preview</div>
-                                <div class="panel-heading" *ngIf="doc_thu.errors.pattern">Preview is invalid</div>
-                            </div>
                         </div>
-                        <div class="form-group {{sku.untouched ? '' : (sku.valid) ? 'has-success' : 'has-error'}}">
+                        <div class="form-group {{sku.untouched ? '' : 'has-success'}}">
                             <label>Sku</label>
                             <div class="input-group mb15">
                                 <span class="input-group-addon"><i class="fa fa-info"></i></span>
                                 <input type="text" class="form-control" placeholder="Sku" name="sku" #sku="ngModel" ngControl="sku" [(ngModel)]="book.sku">
-                            </div>
-                            <div class="panel panel-danger" *ngIf="sku.errors && sku.touched">
-                                <div class="panel-heading" *ngIf="sku.errors.required">Please input sku</div>
-                                <div class="panel-heading" *ngIf="sku.errors.pattern">Sku is invalid</div>
                             </div>
                         </div>
                         <div class="form-group {{kich_thuoc.untouched ? '' : (kich_thuoc.valid) ? 'has-success' : 'has-error'}}">
@@ -172,13 +175,13 @@
                                 <div class="panel-heading" *ngIf="trong_luong.errors.pattern">Weight is invalid</div>
                             </div>
                         </div>
-                        <div class="form-group {{trang_thai.untouched ? '' : (trang_thai.valid) ? 'has-success' : 'has-error'}}">
-                            <label><input type="checkbox" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"> In stock</label>
+                        <div class="form-group {{trang_thai.untouched ? '' : 'has-success'}}">
+                            <p-checkbox label="In stock" binary="true" name="trang_thai" #trang_thai="ngModel" ngControl="trang_thai" [(ngModel)]="book.trang_thai"></p-checkbox>
                         </div>
-                        <div class="form-group {{noi_bat.untouched ? '' : (noi_bat.valid) ? 'has-success' : 'has-error'}}">
-                            <label><input type="checkbox" name="noi_bat" #noi_bat="ngModel" ngControl="noi_bat" [(ngModel)]="book.noi_bat"> Highlight</label>
+                        <div class="form-group {{noi_bat.untouched ? '' : 'has-success'}}">
+                            <p-checkbox label="Highlight" binary="true" name="noi_bat" #noi_bat="ngModel" ngControl="noi_bat" [(ngModel)]="book.noi_bat"></p-checkbox>
                         </div>
-                        <button type="submit" class="btn btn-success" [disabled]="BookForm.form.invalid">{{book.id ? 'Update' : 'Add'}}</button>
+                        <button type="submit" class="btn btn-{{book.id ? 'primary' : 'success'}}" [disabled]="BookForm.form.invalid">{{book.id ? 'Update' : 'Add'}} <i class="fa fa-{{book.id ? 'pencil' : 'plus'}}"></i></button>
                         <button type="reset" class="btn btn-default">Reset</button>
                     </div>
                 </form>

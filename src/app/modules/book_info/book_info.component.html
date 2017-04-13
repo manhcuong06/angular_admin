@@ -1,13 +1,12 @@
 <div class="row" *ngIf="book">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Book view</div>
             <div class="panel-body">
                 <div class="bootstrap-table">
                     <div class="fixed-table-toolbar">
                         <div class="pull-left search">
                             <a class="btn btn-primary" routerLink="/book/update/{{book.id}}" title="Update">Update <i class="fa fa-pencil"></i></a>
-                            <a class="btn btn-danger" href="#" title="Delete">Delete <i class="fa fa-trash"></i></a>
+                            <a class="btn btn-danger" title="Delete" (click)="deleteBook()">Delete <i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                     <div class="fixed-table-container" style="padding-bottom: 0px;">
@@ -36,7 +35,7 @@
                                     </tr>
                                     <tr>
                                         <td>Description</td>
-                                        <td [innerHTML]="book.gioi_thieu"></td>
+                                        <td [innerHTML]="sanitizer.bypassSecurityTrustHtml(book.gioi_thieu)"></td>
                                     </tr>
                                     <tr>
                                         <td>Preview</td>

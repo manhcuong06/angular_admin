@@ -8,7 +8,7 @@ export class Book {
         public id_loai_sach: number,
         public id_nha_xuat_ban: number,
         public so_trang: number,
-        public ngay_xuat_ban: Date,
+        public ngay_xuat_ban: string,
         public kich_thuoc: string,
         public sku: string,
         public trong_luong: number,

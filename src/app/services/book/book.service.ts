@@ -9,8 +9,8 @@ import params = require('../../params/params');
 
 @Injectable()
 export class BookService {
-    api_path    = params_local.service_api_domain + 'book/';
-    images_path = params_local.service_api_domain + 'images/sach/';
+    api_path    = `${params_local.service_api_domain}book/`;
+    images_path = `${params_local.service_api_domain}images/sach/`;
     status      = params.status;
     categories  : any;
     publishers  : any;
@@ -18,7 +18,7 @@ export class BookService {
 
     constructor(private http: Http) { }
 
-    getHttpbooks(): Promise<Book[]> {
+    getAllBooks(): Promise<Book[]> {
         let path = this.api_path;
         return this.http.get(path)
             .toPromise()
@@ -33,17 +33,12 @@ export class BookService {
 
     // getObservableHttpbooks(): Observable<Book[]> {
     //     return this.http.get(this.api_path)
-    //         .map((res: Response) => {
-    //             this.categories = res.json().categories;
-    //             this.publishers = res.json().publishers;
-    //             this.writers    = res.json().writers;
-    //             return res.json().books as Book[];
-    //         })
+    //         .map((res: Response) => res.json() as Book[])
     //     ;
     // }
 
     getBook(id: number): Promise<Book> {
-        let path = this.api_path + 'view?id=' + id;
+        let path = `${this.api_path}view?id=${id}`;
         return this.http.get(path)
             .toPromise()
             .then((res: Response) => {
@@ -56,7 +51,7 @@ export class BookService {
     }
 
     getBookForForm(id: number): Promise<Book> {
-        let path = this.api_path + 'info?id=' + id;
+        let path = `${this.api_path}info?id=${id}`;
         return this.http.get(path)
             .toPromise()
             .then((res: Response) => {
@@ -70,7 +65,7 @@ export class BookService {
 
     postBook(book: Book, file: File) {
         let path = this.api_path;
-        path += (book.id) ? ('update?id=' + book.id) : 'create';
+        path += (book.id) ? (`update?id=${book.id}`) : 'create';
         let formData: FormData = new FormData();
         formData.append('image', file);
         for (var property in book) {
@@ -80,7 +75,7 @@ export class BookService {
     }
 
     deleteBook(id: number) {
-        let path = this.api_path + 'delete?id=' + id;
+        let path = `${this.api_path}delete?id=${id}`;
         return this.http.post(path, id).map((res: Response) => res.json());
     }
 

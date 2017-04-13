@@ -1,12 +1,15 @@
 <div class="row">
     <ol class="breadcrumb">
         <li><a routerLink=""><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-        <li class="active">{{title}}</li>
+        <li *ngFor="let breadcrumb of params.breadcrumbs">
+            <a *ngIf="breadcrumb.url" routerLink="{{breadcrumb.url}}">{{breadcrumb.label}}</a>
+            <span *ngIf="!breadcrumb.url">{{breadcrumb.label}}</span>
+        </li>
     </ol>
 </div><!--/.row-->
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{{title}}</h1>
+        <h1 class="page-header">{{params.title}}</h1>
     </div>
 </div><!--/.row-->
