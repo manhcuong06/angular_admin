@@ -66,7 +66,6 @@ export class ModBookFormComponent implements OnInit {
                 } else {
                     alert('An error occurs.');
                 }
-                console.log(res);
             })
         ;
     }
