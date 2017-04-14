@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Message, ConfirmationService } from 'primeng/primeng';
 import { Book } from '../../models/book/book.model';
 import { BookService } from '../../services/book/book.service';
 import { OrderByPipe } from '../../app.pipe';
@@ -23,11 +24,12 @@ export class ModBookListComponent implements OnInit {
     order_by  : any  = params.defaultOrderBy;
     itemsPerPageList = params.itemsPerPageList;
     itemsPerPage     = this.itemsPerPageList[0].id;
+    messages  : Message[] = [];
     all_books : Book[];
     books     : Book[] = [];
     search_key: string;
 
-    constructor(private book_service: BookService) {
+    constructor(private book_service: BookService, private confirmationService: ConfirmationService) {
         // Get all Book
         this.book_service.getAllBooks()
             .then(books => {
@@ -70,17 +72,28 @@ export class ModBookListComponent implements OnInit {
         this.itemsPerPage = itemsPerPage;
     }
 
+    confirm(book: Book) {
+        this.confirmationService.confirm({
+            header: 'Confirmation',
+            icon: 'fa fa-question-circle',
+            message: `Are you sure that you want to delete: ${book.ten_sach}`,
+            accept: () => {
+                // this.deleteBook(book);
+                this.messages.push({severity:'success', summary:'Deleted successfully', detail:`${book.ten_sach} is deleted successfully`});
+                console.log('Accepted');
+            }
+        });
+    }
+
     deleteBook(book: Book) {
-        if (confirm(`Are you sure you want to delete: ${book.ten_sach}`)) {
-            let index_all = this.all_books.indexOf(book);
-            let index     = this.books.indexOf(book);
-            this.book_service.deleteBook(book.id)
-                .toPromise()
-                .then(res => {
-                    this.all_books.splice(index_all, 1);
-                    this.books.splice(index, 1);
-                })
-            ;
-        }
+        let index_all = this.all_books.indexOf(book);
+        let index     = this.books.indexOf(book);
+        this.book_service.deleteBook(book.id)
+            .toPromise()
+            .then(res => {
+                this.all_books.splice(index_all, 1);
+                this.books.splice(index, 1);
+            })
+        ;
     }
 }

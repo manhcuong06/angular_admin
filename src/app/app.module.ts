@@ -8,7 +8,10 @@ import { SelectModule } from 'ng-select';
 import { Select2Module } from 'ng2-select2';
 
 //PrimeNG Modules
-import { CalendarModule, CheckboxModule } from 'primeng/primeng';
+import {
+  ConfirmDialogModule, GrowlModule, CalendarModule, CheckboxModule,
+  ConfirmationService,
+} from 'primeng/primeng';
 
 import { AppComponent }  from './app.component';
 
@@ -58,7 +61,7 @@ import { FileUploaderComponent } from './modules/file_uploader/file_uploader.com
   imports:      [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing, CKEditorModule, Ng2PaginationModule, SelectModule, Select2Module,
 
                   //PrimeNG Modules
-                  CalendarModule, CheckboxModule ],
+                  ConfirmDialogModule, GrowlModule, CalendarModule, CheckboxModule ],
   declarations: [
     AppComponent,
 
@@ -80,7 +83,7 @@ import { FileUploaderComponent } from './modules/file_uploader/file_uploader.com
     //File Uploader
     FileUploaderComponent
   ],
-  providers: [ MenuService, BookService, ProductService, UserService, OrderByPipe ],
+  providers: [ MenuService, BookService, ProductService, UserService, OrderByPipe, ConfirmationService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
