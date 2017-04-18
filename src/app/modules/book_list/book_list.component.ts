@@ -27,7 +27,7 @@ export class ModBookListComponent implements OnInit {
     messages  : Message[] = [];
     all_books : Book[];
     books     : Book[] = [];
-    search_key: string;
+    search_key: string = '';
 
     constructor(private book_service: BookService, private confirmationService: ConfirmationService) {
         // Get all Book
@@ -74,25 +74,27 @@ export class ModBookListComponent implements OnInit {
 
     confirm(book: Book) {
         this.confirmationService.confirm({
-            header: 'Confirmation',
-            icon: 'fa fa-question-circle',
-            message: `Are you sure that you want to delete: ${book.ten_sach}`,
-            accept: () => {
-                // this.deleteBook(book);
-                this.messages.push({severity:'success', summary:'Deleted successfully', detail:`${book.ten_sach} is deleted successfully`});
-                console.log('Accepted');
+            header  : 'Confirmation',
+            icon    : 'fa fa-question-circle',
+            message : `Are you sure that you want to delete: ${book.ten_sach}`,
+            accept  : () => {
+                this.deleteBook(book);
+                this.messages.push({
+                    severity : 'info',
+                    summary  : 'Deleted',
+                    detail   : `${book.ten_sach} is deleted`
+                });
             }
         });
     }
 
     deleteBook(book: Book) {
-        let index_all = this.all_books.indexOf(book);
-        let index     = this.books.indexOf(book);
+        let index = this.all_books.indexOf(book);
         this.book_service.deleteBook(book.id)
             .toPromise()
             .then(res => {
-                this.all_books.splice(index_all, 1);
-                this.books.splice(index, 1);
+                this.all_books.splice(index, 1);
+                this.search(this.search_key);
             })
         ;
     }

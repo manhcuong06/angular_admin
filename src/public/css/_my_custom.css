@@ -2,6 +2,9 @@
     position: absolute;
     right: 0px;
 }
+.navbar-fixed-top, .navbar-fixed-bottom {
+    z-index: 1000;
+}
 img {
     height: 200px;
     margin: 10px 0;
@@ -39,4 +42,7 @@ ul.ng2-pagination li:not(.disabled):not(.current) {
 }
 .has-error div.below, .has-error .ui-calendar input  {
     border-color: #a94442;
+}
+.ui-growl-item .ui-growl-message p {
+    color: #fff;
 }
